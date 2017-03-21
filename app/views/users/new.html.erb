@@ -1,0 +1,85 @@
+<h1>Add User</h1>
+
+<%= form_for :user, url: users_path do |f| %>
+<!-- TODO STyle page -->
+<div>
+  
+<table>
+
+  <tr>
+    <td>
+      <%= f.label :name %>
+    </td>
+    <td>
+      <%= f.text_field :name %>
+    </td>
+  </tr>
+ 
+  <tr>
+    <td>
+      <%= f.label :email %>
+    </td>
+    <td>
+      <%= f.email_field :email %>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <%= f.label :password %>
+    </td>
+    <td>
+      <%= f.password_field :password %>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <%= f.label :"Confiem Password" %>
+    </td>
+    <td>
+      <%= f.password_field :password %>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <%= f.label :room %>
+    </td>
+    <td>
+      <%= f.number_field :room %>
+     </td>
+  </tr>
+
+  <tr>
+    <td>
+      <%= f.label :"Ext room" %>
+    </td>
+    <td>
+      <%= f.number_field :room %>
+     </td>
+  </tr>
+
+  <tr>
+    <td>
+      <%= f.label :"Profile Picture" %>
+    </td>
+    <td>
+      <%= f.file_field :ppUrl %>
+    </td>
+  </tr>
+ 
+  <tr>
+    <td>
+      <%= f.submit :'Add User' %>
+    </td>
+    <td>
+      <%= f.button :Reset, :type=>"reset" %>
+    </td>
+  </tr>
+
+</table>
+
+</div>
+
+<% end %>
