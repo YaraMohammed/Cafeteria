@@ -1,6 +1,6 @@
 class Order < ApplicationRecord
 	
-	belongs_to : Users
-	has_many : Products
+	#belongs_to : users
+	#has_many : products
 
 end

@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
 
-	belongs_to : Categories
+	#belongs_to : categories
 
 end
