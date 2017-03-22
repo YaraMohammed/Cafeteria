@@ -2,10 +2,10 @@
 
 one:
   name: MyString
-  room: 
+  room: 1
   date: 2017-03-21
 
 two:
   name: MyString
-  room: 
+  room: 1
   date: 2017-03-21

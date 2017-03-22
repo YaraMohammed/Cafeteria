@@ -5,7 +5,7 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.string :password
       t.string :email
       t.integer :room
-      t.integer :ext-room
+      t.integer :ext_room
       t.string :ppUrl
 
       t.timestamps
