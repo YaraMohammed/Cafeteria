@@ -1,0 +1,15 @@
+  <body>
+    <header class="navbar navbar-fixed-top navbar-inverse">
+      <div class="container">
+        <nav>
+          <ul class="nav navbar-nav navbar-right">
+            <%= link_to "Home",   '#' %>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+            <%= link_to "My Orders",   '#' %>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
