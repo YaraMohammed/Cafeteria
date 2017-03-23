@@ -8,4 +8,7 @@ class User < ApplicationRecord
 	validates :email, presence: true
 	validates :password, confirmation: true
   	validates :password_confirmation, presence: true
+
+  	self.per_page = 1
 end
+WillPaginate.per_page = 1
