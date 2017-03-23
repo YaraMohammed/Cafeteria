@@ -2,6 +2,22 @@
 
 <%= form_for :user, url: users_path do |f| %>
 <!-- TODO STyle page -->
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@user.errors.count, "error") %> prohibited
+        this article from being saved:
+      </h2>
+      <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+
+<% end %>
+
+
 <div>
   
 <table>
@@ -38,7 +54,7 @@
       <%= f.label :"Confiem Password" %>
     </td>
     <td>
-      <%= f.password_field :password %>
+      <%= f.password_field :password_confirmation %>
     </td>
   </tr>
 
@@ -56,7 +72,7 @@
       <%= f.label :"Ext room" %>
     </td>
     <td>
-      <%= f.number_field :room %>
+      <%= f.number_field :ext_room %>
      </td>
   </tr>
 
@@ -65,7 +81,7 @@
       <%= f.label :"Profile Picture" %>
     </td>
     <td>
-      <%= f.file_field :ppUrl %>
+      <%= f.file_field :image %>
     </td>
   </tr>
  

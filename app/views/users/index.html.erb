@@ -1,0 +1,26 @@
+<h1>ALL Users</h1>
+ 
+<%= link_to 'Add user', users_new_path %>
+<table>
+  <tr>
+    <th>name</th>
+    <th>room</th>
+    <th>image</th>
+    <th>Ext.</th>
+    <th>Actions</th>
+    <% @user.each do |user| %>
+	    </tr>
+		    <td><%= user.name %></td>
+		    <td><%= user.room %></td>
+	    	<td><%= image_tag user.image.url(:thumb) %></td>
+	    	<td><%= user.ext_room %></td>	
+	    	<td><%= link_to 'available`', new_product_path(user) %></td>
+	      	<td><%= link_to 'Edit', new_product_path(user) %></td>
+	      	<td><%= link_to 'Delete', new_product_path(user),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+	  	</tr>	
+	<% end %>
+</table>
+	

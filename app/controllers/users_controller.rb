@@ -2,22 +2,23 @@ class UsersController < ApplicationController
 
 #TODO routes
 
-	def new
-		render 'new'
-	end
-
 	def index
-		@users = Users.all
+		@user = User.all
+	end
+	def new
+		@user = User.new
 	end
 
-	def show
-	end
-
-#TODO ... get uploaded file to public and save the url in the database
 	def create
-	  @user = User.new(params[:user])
-	 
-	  @user.save
-	  redirect_to @user
+		@user=User.create(user_params)
+		if @user.save
+			redirect_to users_path
+		else
+			render 'new'
+		end
 	end
+
+def user_params
+  params.require(:user).permit(:name, :email,:password,:password_confirmation, :room, :ext_room,:image)
+end
 end

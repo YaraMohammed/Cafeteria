@@ -1,19 +1,20 @@
 <h1>ALL Products</h1>
  
-<%= link_to 'New Product', products_new_path %>
+<%= link_to 'New Product', new_product_path %>
 <table>
   <tr>
     <th>name</th>
     <th>price</th>
     <th>image</th>
+
     <% @product.each do |product| %>
 	    </tr>
 		    <td><%= product.name %></td>
 		    <td><%= product.price %></td>
 	    	<td><%= image_tag product.image.url(:thumb) %></td>	
-	    	<td><%= link_to 'available`', products_new_path(product) %></td>
-	      	<td><%= link_to 'Edit', products_new_path(product) %></td>
-	      	<td><%= link_to 'Delete', products_new_path(product),
+	    	<td><%= link_to 'available`', new_product_path(product) %></td>
+	      	<td><%= link_to 'Edit',edit_product_path(product) %></td>
+	      	<td><%= link_to 'Delete', product_path(product),
               method: :delete,
               data: { confirm: 'Are you sure?' } %></td>
     </tr>
