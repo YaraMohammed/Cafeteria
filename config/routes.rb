@@ -4,5 +4,7 @@ Rails.application.routes.draw do
   get 'products' =>'products#index'
   get 'products/new'
   post 'products' => 'products#create'
+  get 'categories/new'
+  post 'categories' => 'categories#create'
 
 end
