@@ -1,6 +1,6 @@
 <h1>ALL Users</h1>
  
-<%= link_to 'Add user', users_new_path %>
+<%= link_to 'Add user', new_user_path %>
 <table>
   <tr>
     <th>name</th>
@@ -14,9 +14,8 @@
 		    <td><%= user.room %></td>
 	    	<td><%= image_tag user.image.url(:thumb) %></td>
 	    	<td><%= user.ext_room %></td>	
-	    	<td><%= link_to 'available`', new_product_path(user) %></td>
-	      	<td><%= link_to 'Edit', new_product_path(user) %></td>
-	      	<td><%= link_to 'Delete', new_product_path(user),
+	      	<td><%= link_to 'Edit', edit_user_path(user) %></td>
+	      	<td><%= link_to 'Delete', user_path(user),
               method: :delete,
               data: { confirm: 'Are you sure?' } %></td>
     </tr>

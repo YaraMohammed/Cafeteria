@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   #USERS ROUTES
-  get 'users' =>'users#index'
-  get 'users/new'
-  post 'users' => 'users#create'
+  # get 'users' =>'users#index'
+  # get 'users/new'
+  # post 'users' => 'users#create'
+  resources :users
   #PRODUCTS ROUTES
   # get 'products' =>'products#index'
   # get 'products/new'

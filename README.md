@@ -26,3 +26,8 @@ Things you may want to cover:
 
 **run before testing locally 
 bundle install --without production
+
+
+# to upload images to use it @ paperclip gem
+*sudo yum install imagemagick
+*sudo apt-get install imagemagick -y
