@@ -13,5 +13,8 @@ Rails.application.routes.draw do
   #CATEGORIES ROUTES
   get 'categories/new'
   post 'categories' => 'categories#create'
+  #ORDER ROUTES
+  get 'orders/new' =>'orders#new'
+
 
 end

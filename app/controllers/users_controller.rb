@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
+
 before_action :user_data, only:[:edit, :update,:destroy]
 
 	def index
+
 		@user = User.all
 	end
 	def new
@@ -30,6 +32,7 @@ before_action :user_data, only:[:edit, :update,:destroy]
   	end
 
   	def destroy
+  		
     	@user.destroy
     	redirect_to users_path
   	end

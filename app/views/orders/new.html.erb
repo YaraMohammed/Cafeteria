@@ -1,0 +1,26 @@
+<%= form_for (:order), html: { multipart: true } do |f| %>
+
+ 
+<div id="search">
+  
+</div>
+
+<div id="order">
+  
+</div>
+
+<div id="latest_order">
+  
+</div>
+
+<div id="list_products">
+<table>
+<tr>
+  <% @product.each do |product| %>
+  <td><%= image_tag product.image.url(:thumb) %></td>
+  <% end %>
+  </tr>
+  </table>
+</div>
+
+<% end %>

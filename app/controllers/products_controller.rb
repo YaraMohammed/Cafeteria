@@ -32,7 +32,7 @@ class ProductsController < ApplicationController
   def destroy
     
     @product.destroy
- 
+ 	puts "hiiiiiiiiiiiiiiiiiiiiiiiiii"
     redirect_to products_path
   end
 
