@@ -3,8 +3,7 @@ class UsersController < ApplicationController
 before_action :user_data, only:[:edit, :update,:destroy]
 
 	def index
-
-		@user = User.all
+		@user = User.all.paginate(page: params[:page], per_page: 1)
 	end
 	def new
 		@user = User.new
