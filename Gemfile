@@ -61,8 +61,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 #paperclip gem
 gem "paperclip", "~> 5.0.0"
 
-#devise for auth
-gem 'devise'
 
 #bootstrap gem
 gem 'bootstrap-sass', '3.3.6'
