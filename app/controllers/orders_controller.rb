@@ -2,9 +2,11 @@ class OrdersController < ApplicationController
 	def index
 		@product=Product.all
 
-		@order = Order.new
+		@order =Order.new
 	end
 	def new
+		@uroom=User.uniq.pluck(:room)
+		puts @uroom
 		@product=Product.all
 
 		@order = Order.new

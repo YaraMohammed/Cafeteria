@@ -68,3 +68,6 @@ gem 'bootstrap-sass', '3.3.6'
 gem 'autoprefixer-rails'
 
 gem 'bootswatch-rails'
+
+#paging gem
+gem 'will_paginate', '~> 3.1.1'
