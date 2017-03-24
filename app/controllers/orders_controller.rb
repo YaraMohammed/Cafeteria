@@ -5,6 +5,8 @@ class OrdersController < ApplicationController
 		@order =Order.new
 	end
 	def new
+		@uroom=User.uniq.pluck(:room)
+		puts @uroom
 		@product=Product.all
 
 		@order = Order.new

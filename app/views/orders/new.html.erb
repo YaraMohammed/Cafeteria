@@ -1,13 +1,24 @@
 <%= form_for (:order), html: { multipart: true } do |f| %>
-
- 
+</br>
+</br>
 <div id="search">
   
 </div>
 
-<div id="order">
-
-  
+<div id="order" style="display: inline">
+<!--  <span>
+       productname
+      <a href="#" id="add">+</a>
+      <a href="#" id="sub">-</a>
+      * product.price EPG
+  </span> -->
+<%= f.label :NOTES %></br>
+<%= f.text_area :name, size: "10x5" %></br>
+<%= f.label :Room %>
+<%= f.collection_select(:room, User.uniq.pluck(:room), :to_s, :to_s) %>
+</br>-------------------------------------</br>
+<p id="total">EPG</p>
+<%= f.submit %>
 </div>
 
 <div id="latest_order">
@@ -25,6 +36,9 @@
   </tr>
   <tr>
   <td style="text-align: center"><%= product.name %></td>
+  </tr>
+   <tr>
+  <td ><p id="msg"></p></td>
   </tr>
   </table>
   </span>
