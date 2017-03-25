@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20170323213310) do
   create_table "order_products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "order_id"
     t.integer  "product_id"
+    t.integer  "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["order_id"], name: "index_order_products_on_order_id", using: :btree
@@ -28,7 +29,7 @@ ActiveRecord::Schema.define(version: 20170323213310) do
   end
 
   create_table "orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "name"
+    t.string   "notes"
     t.integer  "room"
     t.date     "date"
     t.datetime "created_at", null: false
