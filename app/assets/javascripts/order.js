@@ -18,7 +18,7 @@ jQuery(document).ready(function($) {
       productsIds.push(productId);
         total = product['price'] ;
         $("#items").append(
-          '<tr title="' + product['name'] + '" data-id="' + product['id'] + '" data-price="' + product['Price'] + '">' +
+          '<tr title="' + product['name'] + '" id="' + product['id'] + '" data-price="' + product['Price'] + '">' +
           '<td>' + product['name'] + '</td>' +
           '<td title="Unit Price">' + product['price'] + '</td>' +
           '<td title="Quantity"><input type="number" class="quantity" min="1" value=1 style="width: 30px;" id=' + product['id'] + '_q value=""/></td>' +
@@ -40,4 +40,34 @@ jQuery(document).ready(function($) {
   t += totalThis ;
   $("#total").text(t);
     });
+
+ //Send data to controller
+ $("#save_order").click(function(event) {
+
+  /* stop form from submitting normally */
+   event.preventDefault();
+   console.log("stop")
+
+  var order_products=[]
+   $("#items").children().each(function(){
+    // $('input').id
+     product_id=Number(this.id)
+     product_quantity=Number(this.children[2].children[0].value)
+     order_products.push(JSON.stringify({"id":product_id,"quantity":product_quantity}))
+   });
+   
+  /* Send the data using post and put the results in a div */
+    $.ajax({
+      url: "/orders/new",
+      type: "post",
+      data: order_products,
+      success: function(){
+        //TODO display saved msg then clean page
+       //alert('Saved Successfully');
+      },
+      error:function(){
+       alert('Error');
+      }
+    });
+});
 });
