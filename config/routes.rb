@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'sessions/new'
+
 # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   #USERS ROUTES
   # get 'users' =>'users#index'
@@ -17,8 +19,13 @@ Rails.application.routes.draw do
   #ORDER ROUTES
   get 'orders/new' =>'orders#new'
   get 'orders/myorder'
-  post 'orders/myorder' =>'orders#create'
+  post 'orders/myorder' =>'orders#list'
   post 'orders/new' =>'orders#create'
 
+  #SESSION ROUTES
+  resources :sessions, only: [:new, :create, :destroy]
+  #login and logout
+  get 'login', to: 'sessions#new', as: 'login'
+  get 'logout', to: 'sessions#destroy', as: 'logout'
 
 end

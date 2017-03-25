@@ -13,7 +13,7 @@ class OrdersController < ApplicationController
 	end
 
 	def order_params
-  		params.require(:user).permit(:name, :email,:password,:password_confirmation, :room, :ext_room,:image)
+  		# params.require(:user).permit(:name, :email,:password,:password_confirmation, :room, :ext_room,:image)
 	end
 
 
@@ -22,6 +22,8 @@ class OrdersController < ApplicationController
 		@product=Product.all
 		# puts data
 		render 'new'
+	end
+	def list
 	end
 
 
