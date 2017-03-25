@@ -18,8 +18,8 @@ class OrdersController < ApplicationController
 
 
 	def create
-
-		@product=Product.all
+		puts paramrs
+		# @product=Product.all
 		# puts data
 		render 'new'
 	end
