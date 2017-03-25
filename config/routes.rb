@@ -16,11 +16,9 @@ Rails.application.routes.draw do
   post 'categories' => 'categories#create'
   #ORDER ROUTES
   get 'orders/new' =>'orders#new'
-<<<<<<< HEAD
   get 'orders/myorder'
   post 'orders/myorder' =>'orders#create'
-=======
   post 'orders/new' =>'orders#create'
->>>>>>> 781d21461ce9eb80f740040ebdebe52306a69032
+
 
 end
