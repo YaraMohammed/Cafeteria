@@ -11,8 +11,12 @@ class OrdersController < ApplicationController
 
 		@order = Order.new
 		# render 'new'
-
 	end
+def create
+	render "myorder"
+
+end
+
 	def order_params
   		params.require(:user).permit(:name, :email,:password,:password_confirmation, :room, :ext_room,:image)
 	end
