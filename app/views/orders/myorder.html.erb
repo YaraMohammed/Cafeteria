@@ -1,0 +1,32 @@
+
+<h1>My Oders</h1>
+
+<%= render 'form' %>
+
+<%= form_for :order do |f| %>
+
+<%= f.label :from %>
+
+<input type="text" id="datebox1" onchange="console.log(document.getElementById('datebox1').value)"/>
+<%= f.label :to %>
+<input type="text" id="datebox2"   onchange="console.log(document.getElementById('datebox2').value)"/>
+
+
+    <%= f.submit "Search"%>
+
+<% end %>
+
+
+
+
+</br>
+<table style="width:50%">
+  <tr>
+    <th>Order Date</th>
+    <th>Status</th> 
+    <th>Amount</th>
+    <th>Action</th>
+  </tr>
+
+
+</table>

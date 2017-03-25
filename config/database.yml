@@ -22,6 +22,7 @@ default: &default
   socket: /var/run/mysqld/mysqld.sock
 
 
+
 development:
   <<: *default
   database: Cafeteria_development

@@ -18,9 +18,13 @@ Rails.application.routes.draw do
   post 'categories' => 'categories#create'
   #ORDER ROUTES
   get 'orders/new' =>'orders#new'
+  get 'orders/myorder'
+  post 'orders/myorder' =>'orders#list'
+  post 'orders/new' =>'orders#create'
+
   #SESSION ROUTES
   resources :sessions, only: [:new, :create, :destroy]
-  #
+  #login and logout
   get 'login', to: 'sessions#new', as: 'login'
   get 'logout', to: 'sessions#destroy', as: 'logout'
 

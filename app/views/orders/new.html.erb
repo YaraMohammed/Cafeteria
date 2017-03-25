@@ -15,13 +15,12 @@
   </span> -->
   <div id="items" ></div>
 <%= f.label :NOTES %></br>
-<%= f.text_area :name, size: "10x5" %></br>
+<%= f.text_area :notes, size: "10x5" %></br>
 <%= f.label :Room %>
 <%= f.collection_select(:room, User.uniq.pluck(:room), :to_s, :to_s) %>
 </br>-------------------------------------</br>
 <p id="total">EPG</p>
-<%= f.submit %>
-</div>
+<%= f.submit "Save", :id=> "save_order" %>
 
 <div id="latest_order">
   
