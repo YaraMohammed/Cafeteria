@@ -12,7 +12,7 @@ before_action :user_data, only:[:edit, :update,:destroy]
 	def create
 		@user=User.create(user_params)
 		if @user.save
-			redirect_to users_path
+			redirect_to users_path, notice: 'Thank you for signing up!'
 		else
 			render 'new'
 		end
@@ -37,7 +37,7 @@ before_action :user_data, only:[:edit, :update,:destroy]
   	end
 
 def user_params
-  params.require(:user).permit(:name, :email,:password,:password_confirmation, :room, :ext_room,:image)
+  params.require(:user).permit(:name, :email,:password, :password_confirmation, :room, :ext_room,:image)
 end
 
 def user_data
