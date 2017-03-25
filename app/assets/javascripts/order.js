@@ -4,7 +4,7 @@ t = 0 ;
 
 jQuery(document).ready(function($) {
 
-
+//handle listening to products images
   $("body").on('click' , '.allProducts' , (function (){
     productId = this.id;
     name = $("#name_"+this.id).text();
@@ -23,7 +23,7 @@ jQuery(document).ready(function($) {
           '<td title="Unit Price">' + product['price'] + '</td>' +
           '<td title="Quantity"><input type="number" class="quantity" min="1" value=1 style="width: 30px;" id=' + product['id'] + '_q value=""/></td>' +
           '<td title="Total" id=' + product['id'] + '_t>$' + total + '</td>' +
-          '<td title="Remove from Cart" class="text-center" style="width: 40px;"><a href="javascript:void(0);" class="btn btn-xs btn-danger ' + "classProductRemove" + '">X</a></td>' +
+          '<td title="Remove from Order" class="text-center" style="width: 40px;"><a href="javascript:void(0);" class="btn btn-xs btn-danger ' + "classProductRemove" + '">X</a></td>' +
           '</tr>'
         );
         total = product['price']*Number($("#"+product['id']+"_q").val());
@@ -31,7 +31,7 @@ jQuery(document).ready(function($) {
     }
   }));
 
-
+//calculate total for product and order
  $(document).on("input", ".quantity", function () {
   var id = this.id.split("_")[0];
   var price = Number($(this).closest("td").prev('td').text());
@@ -40,6 +40,18 @@ jQuery(document).ready(function($) {
   t += totalThis ;
   $("#total").text(t);
     });
+
+//handle X buttom
+ $("body").on("click",".btn-danger",function(){
+  this.closest("tr").remove();
+  var i = productsIds.indexOf(this.id);
+  products.splice(i,1);
+  productsIds.splice(i,1);
+ })
+
+
+
+
 
  //Send data to controller
  $("#save_order").click(function(event) {
