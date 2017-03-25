@@ -66,14 +66,15 @@ jQuery(document).ready(function($) {
    $("#items").children().each(function(){
      product_id=Number(this.id)
      product_quantity=Number(this.children[2].children[0].value)
-     order_products.push({"id":product_id,"quantity":product_quantity,"notes":$("#order_note").val() ,"room":$("#order_room").val()})
+     order_products.push({"id":product_id,"quantity":product_quantity})
    });
    
+  var finalOrder = JSON.stringify({"notes": $("#order_notes").val() ,"room": $("#order_room").val(), "products":order_products})
   /* Send the data using post and put the results in a div */
     $.ajax({
       url: "/orders/new",
       type: "post",
-      data: JSON.stringify(order_products),
+      data: finalOrder,
       success: function(){
       },
       error:function(){
