@@ -1,3 +1,4 @@
+<% if @current_user.id == 1%>
 <h1>ALL Products</h1>
  <div class="container text-justify navbar">
 <%= link_to 'New Product', new_product_path %>
@@ -23,3 +24,7 @@
 </table>
 </div>
 <%= will_paginate @product %>
+<% else %>
+<h1>You are not Authorized !!</h1>
+
+<% end %>

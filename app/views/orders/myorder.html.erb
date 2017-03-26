@@ -1,3 +1,5 @@
+<% if @current_user.id != 1%>
+
 <h1>My Oders</h1>
 
 <%= render 'form' %>
@@ -36,3 +38,7 @@
 
 
 </table>
+<% else %>
+<h1>You are not Authorized !!</h1>
+
+<% end %>

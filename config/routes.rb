@@ -7,12 +7,12 @@ Rails.application.routes.draw do
   # get 'users' =>'users#index'
   # get 'users/new'
   # post 'users' => 'users#create'
-  resources :users
+  resources :users, only: [:new, :create, :edit, :update, :destroy]
   #PRODUCTS ROUTES
   # get 'products' =>'products#index'
   # get 'products/new'
   # post 'products' => 'products#create'
-  resources :products
+  resources :products, only: [:new, :create, :edit, :update, :destroy]
   #CATEGORIES ROUTES
   get 'categories/new'
   post 'categories' => 'categories#create'
