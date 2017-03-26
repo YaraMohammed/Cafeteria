@@ -21,7 +21,8 @@ Rails.application.routes.draw do
   get 'orders/myorder'
   #post 'orders/myorder' =>'orders#list'
   post 'orders/new' =>'orders#create'
-  get 'orders' =>'orders#index'
+  get 'orders' =>'orders#list'
+  post 'orders/deliver' =>'orders#deliver'
   #SESSION ROUTES
   resources :sessions, only: [:new, :create, :destroy]
   #login and logout

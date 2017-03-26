@@ -42,22 +42,52 @@ class OrdersController < ApplicationController
 		end
 	end
 
-	def index
+	def list
 		puts "++++++++++++++++++++++++++++++++++"
 		if @current_user.id != 1
 			@orders= Order.all
-			puts "+++++++++++++Orders++++++++++++++"
-			@orders.inspect
-			render :new
-			# @orders.each |order|
-			# {
-			# 	order.inspect
-			# 	# @user=User.find(order.user_id)
-			# 	# @user.inspect
-			# }
+			# puts "+++++++++++++Orders++++++++++++++"
+			# @orders.inspect
+			# puts @orders.class
+			# @orderproducts=OrderProduct.all
+			@users=User.all
+			@products =Product.all
+			@orderdata=[]
+			@orderproducts=[]
+			@orders.each { |order| 
+				 # puts order.created_at
+				@user=User.find(order.user_id)
 
+				@orderdata << {"oid" => order.id, "odate" => order.created_at,"uname" => @user.name ,"uroom" => @user.room,"uext" => @user.ext_room}
+				# @orderproductsids=OrderProduct.find_by_order_id(order.id)
+				# @orderproductsids=OrderProduct.connection.select_all("SELECT * FROM order_products WHERE order_id = "+order.id.to_s)
+				@orderproductsids=OrderProduct.find_by_sql("SELECT * FROM order_products WHERE order_id = "+order.id.to_s)
+				# puts "+++++++++++++orderproductsids++++++++++++++"
+				# puts @orderproductsids.inspect
+				# @orderproducts << {"oid" => order.id}
+				# @orderproductsids.each { |product|
+				# 	@product =Product.find(product.product_id)
+				# 	@orderproducts << @product
+				# }
+				# @user.inspect
+
+			}
+			# puts "+++++++++++++orderdata++++++++++++++"
+			# puts @orderdata.inspect
+			# puts "+++++++++++++orderproducts++++++++++++++"
+			# puts @orderproducts.inspect
+
+			render 'list'
 		end
 
+	end
+	def deliver
+		puts "+++++++++++++oid++++++++++++++"
+		puts params[:oid]
+		@order = Order.find(params[:oid])
+		@order.update(status: "out for delivery")
+		puts "+++++++++++++oid++++++++++++++"
+		redirect_to 'list'
 	end
 
 	def orderProducts
