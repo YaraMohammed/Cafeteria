@@ -69,13 +69,14 @@ jQuery(document).ready(function($) {
      order_products.push({"id":product_id,"quantity":product_quantity})
    });
    
-  var finalOrder = JSON.stringify({"notes": $("#order_notes").val() ,"room": $("#order_room").val(), "products":order_products})
-  /* Send the data using post and put the results in a div */
+  var finalOrder = {"notes": $("#order_notes").val() ,"room": $("#order_room").val(), "products":JSON.stringify(order_products)}
+  /* Send the data using post and put the results in a body */
     $.ajax({
       url: "/orders/new",
       type: "post",
       data: finalOrder,
-      success: function(){
+      success: function(response) {
+        $('body').html(response);
       },
       error:function(){
        alert('Error');
