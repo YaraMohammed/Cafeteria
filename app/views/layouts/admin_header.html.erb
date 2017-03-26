@@ -16,14 +16,16 @@
           <!-- TODO add check for admin or normal user -->
             <% if logged_in?  %>
               <% if @current_user.id == 1%>
-                <%= link_to "Home",   '#' %> &nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-                <%= link_to "Products",   products_path %> &nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-                <%= link_to "Users",   users_path %> &nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-                <%= link_to "Manual Order",   orders_new_path %> &nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-                <%= link_to "Checks",   '#' %> &nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+                <a href="/orders/new" onclick="document.location='/orders/new'">Home</a> &nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+                <a href="/products" onclick="document.location='/products'">Products</a> &nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+                <a href="/users" onclick="document.location='/users'">Users</a> &nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+                <a href="/orders/new" onclick="document.location='/orders/new'">Manual Order</a> &nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+                <a href="#" onclick="document.location='#'">Checks</a> &nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+                
               <% else %>
-                <%= link_to "Home",   orders_new_path %> &nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-                <%= link_to "My Orders",   '#' %> &nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+                <a href="/orders/new" onclick="document.location='/orders/new'">Home</a> &nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+                <a href="/orders/new" onclick="document.location='/orders/new'">My Orders</a> &nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+                
               <% end %>
               <%= link_to 'Logout', logout_path %>  
             <% else %>  
