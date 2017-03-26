@@ -1,5 +1,5 @@
 class CategoriesController < ApplicationController
- 
+ before_action :logged
   def index
     @category = Category.all
   end
@@ -22,5 +22,7 @@ class CategoriesController < ApplicationController
 def category_params
   params.require(:category).permit(:name)
 end
-
+def logged
+  notlogged
+end
 end

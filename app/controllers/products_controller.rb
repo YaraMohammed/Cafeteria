@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  before_action :logged
   before_action :product_data, only:[:edit, :update,:destroy]
   def index
     @product = Product.all
@@ -43,6 +44,9 @@ end
 
 def product_data
 	@product = Product.find(params[:id])
+end
+def logged
+  notlogged
 end
 
 end
