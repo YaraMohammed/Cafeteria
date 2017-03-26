@@ -3,7 +3,8 @@ productsIds = []
 found = []
 t = 0 ;
 
-jQuery(document).ready(function($) {
+// jQuery(document).on("turbolinks:load",(function($) {
+  jQuery(document).ready(function($){
 
 //handle listening to products images
   $("body").on('click' , '.allProducts' , (function (){
@@ -107,3 +108,4 @@ jQuery(document).ready(function($) {
  });
 
 });
+// }));
