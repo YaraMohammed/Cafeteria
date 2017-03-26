@@ -1,5 +1,6 @@
 products = []
 productsIds = []
+found = []
 t = 0 ;
 
 jQuery(document).ready(function($) {
@@ -83,4 +84,21 @@ jQuery(document).ready(function($) {
       }
     });
 });
+
+
+//search bar
+  $("#search").keyup(function(){
+    console.log($(this).val().toLowerCase())
+ //    $.each(products,function(){
+ //      // if(this['name'])
+ //      console.log(this);
+ //    })
+ // // var val = $(this).val().toLowerCase();
+ // //  if(products['name'].includes(val))
+ // //    console.log(val);
+ // //  else
+ // //    console.log("not found")
+  
+ });
+
 });
