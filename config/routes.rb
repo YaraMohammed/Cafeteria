@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   # get 'products/new'
   # post 'products' => 'products#create'
   resources :products, only: [:index, :new, :create, :edit, :update, :destroy]
+  post 'products/changestatus' =>'products#changestatus'
   #CATEGORIES ROUTES
   get 'categories/new'
   post 'categories' => 'categories#create'

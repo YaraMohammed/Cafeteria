@@ -12,7 +12,7 @@ class OrdersController < ApplicationController
 		# if logged_in?
 		# 	puts "uid"	
 			# puts @current_user.id
-		@product=Product.all
+		@product=Product.where("status = true")
 		@order = Order.new
 	end
 

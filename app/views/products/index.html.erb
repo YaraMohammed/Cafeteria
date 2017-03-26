@@ -12,8 +12,12 @@
 	    </tr>
 		    <td><%= product.name %></td>
 		    <td><%= product.price %></td>
-	    	<td><%= image_tag product.image.url(:thumb) %></td>	
-	    	<td><%= link_to 'available	', new_product_path(product) %></td>
+	    	<td><%= image_tag product.image.url(:thumb) %></td>
+	    	<% if product.status %>
+	    		<td><%= link_to "Available", {:controller => "products", :action => "changestatus", :pid =>  product.id},method: :post,:onclick => '$(this).text("Unvailable")' %></td>
+	    	<% else %>
+	    		<td><%= link_to "Unvailable", {:controller => "products", :action => "changestatus", :pid =>  product.id},method: :post, :onclick => '$(this).text("Available")'%></td>
+	    	<% end %>
 	      	<td><%= link_to 'Edit',edit_product_path(product) %></td>
 	      	<td><%= link_to 'Delete', product_path(product),
               method: :delete,
