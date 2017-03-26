@@ -28,16 +28,17 @@
                 
               <% end %>
               <%= link_to 'Logout', logout_path %> 
+            <ul class="navbar-brand navbar-nav navbar-right" style="float:right">
+              <%= image_tag(@current_user.image, :size => '48x48', :style => 'display: inline')%>
+              <%= @current_user.name %>
+          </ul>
             <% else %>  
                 <!-- TODO  -->
                     
               <% end %>
 
           </ul>
-          <ul class="navbar-brand navbar-nav navbar-right">
-            <%= image_tag('userIcon.png', :size => '48x48', :style => 'display: inline')%>
-            <%= @current_user.name %>
-          </ul>
+
         </nav>
       </div>
     </header>
