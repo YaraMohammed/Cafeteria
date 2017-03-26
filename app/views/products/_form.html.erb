@@ -2,7 +2,7 @@
 
  
   <% if @product.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="pagination navbar">
       <h2>
         <%= pluralize(@product.errors.count, "error") %> prohibited
         this product from being saved:
@@ -17,14 +17,14 @@
 <% end %>
 <div>
   
-<table>
+<table class="navbar table">
 
   <tr>
     <td>
       <%= f.label :name %>
     </td>
     <td>
-      <%= f.text_field :name %>
+      <%= f.text_field :name, :class=>"form-control" %>
     </td>
   </tr>
  
@@ -35,7 +35,7 @@
       <%= f.label :price %>
     </td>
     <td>
-      <%= f.number_field :price, min: 1 %> EGP
+      <%= f.number_field :price, min: 1 , :class=>"form-control"%> EGP
      </td>
   </tr>
 
@@ -44,7 +44,7 @@
       <%= f.label :Category %>
     </td>
     <td>
-      <%= f.collection_select(:category_id, Category.all, :id, :name) %>
+      <%= f.collection_select(:category_id, Category.all, :id, :name , {}, {class: "form-control"}) %>
      </td>
      <td>
        <%= link_to 'Add Category', categories_new_path %>
@@ -62,10 +62,10 @@
  
   <tr>
     <td>
-      <%= f.submit %>
+      <%= f.submit :'Add Product' , :class => "btn btn-primary"%>
     </td>
     <td>
-      <%= f.button :Reset, :type=>"reset" %>
+      <%= f.button :Reset, :type=>"reset", :class => "btn btn-primary" %>
     </td>
   </tr>
 

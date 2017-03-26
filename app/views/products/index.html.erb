@@ -1,7 +1,7 @@
 <h1>ALL Products</h1>
- 
+ <div class="container text-justify navbar">
 <%= link_to 'New Product', new_product_path %>
-<table>
+<table class="nav navbar-brand table">
   <tr>
     <th>name</th>
     <th>price</th>
@@ -21,3 +21,5 @@
 	  	</tr>	
 	<% end %>
 </table>
+</div>
+<%= will_paginate @product %>

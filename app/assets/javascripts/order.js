@@ -6,6 +6,8 @@ t = 0 ;
 // jQuery(document).on("turbolinks:load",(function($) {
   jQuery(document).ready(function($){
 
+    $("#order_notes").val("");
+
 //handle listening to products images
   $("body").on('click' , '.allProducts' , (function (){
     productId = this.id;

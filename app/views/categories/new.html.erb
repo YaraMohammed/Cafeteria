@@ -17,26 +17,26 @@
 
 <h1>Add Category</h1>
 
+<div class="container">
 
-
-<div>
+<div class="nav navbar">
   
-<table>
+<table class="nav navbar navbar-brand">
 
-  <tr>
+  <tr >
     <td>
       <%= f.label :name %>
     </td>
     <td>
-      <%= f.text_field :name %>
+      <%= f.text_field :name , :class=>"form-control"%>
     </td>
   </tr>
   <tr>
     <td>
-      <%= f.submit :'Add Category' %>
+      <%= f.submit :'Add Category' , :class => "btn btn-primary" %>
     </td>
     <td>
-      <%= f.button :Reset, :type=>"reset" %>
+      <%= f.button :Reset, :type=>"reset" , :class => "btn btn-primary" %>
     </td>
   </tr>
 
@@ -47,3 +47,4 @@
 <% end %>
 
 <%= link_to 'Back', new_product_path %>
+</div>

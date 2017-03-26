@@ -14,7 +14,7 @@ before_action :user_data, only:[:edit, :update,:destroy]
 
 		@user=User.create(user_params)
 		if @user.save
-			redirect_to users_path, notice: 'Thank you for signing up!'
+			redirect_to users_path
 		else
 			render 'new'
 		end
