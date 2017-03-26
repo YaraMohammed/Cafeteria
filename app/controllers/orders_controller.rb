@@ -1,11 +1,11 @@
 class OrdersController < ApplicationController
 	require 'json'	
 	before_action :logged
-	def index
-		@current_user
-		@product=Product.all
-		@order =Order.new
-	end
+	# def index
+	# 	@current_user
+	# 	@product=Product.all
+	# 	@order =Order.new
+	# end
 
 	def new
 
@@ -27,7 +27,7 @@ class OrdersController < ApplicationController
 			@ouser = orderProducts['usr']
 		end
 
-		@order = Order.create(notes: orderProducts['notes'], room: orderProducts['room'],user_id: @ouser)
+		@order = Order.create(notes: orderProducts['notes'], room: orderProducts['room'],user_id: @ouser,status:"Processing")
 		
 		if @order.save
 			if @oproducts != nil
@@ -42,7 +42,22 @@ class OrdersController < ApplicationController
 		end
 	end
 
-	def list
+	def index
+		puts "++++++++++++++++++++++++++++++++++"
+		if @current_user.id != 1
+			@orders= Order.all
+			puts "+++++++++++++Orders++++++++++++++"
+			@orders.inspect
+			render :new
+			# @orders.each |order|
+			# {
+			# 	order.inspect
+			# 	# @user=User.find(order.user_id)
+			# 	# @user.inspect
+			# }
+
+		end
+
 	end
 
 	def orderProducts
