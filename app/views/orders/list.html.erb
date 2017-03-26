@@ -1,0 +1,20 @@
+<h1>Orders</h1>
+<table>
+  <tr>
+    <th>Order Date</th>
+    <th>Name</th>
+    <th>Room</th>
+    <th>Ext.</th>
+    <th>Actions</th>
+    <% @orderdata.each do |orderdata| %>
+	    </tr>
+		    <td><%= orderdata["odate"] %></td>
+		    <td><%= orderdata["uname"] %></td>
+	    	<td><%= orderdata["uroom"] %></td>
+	    	<td><%= orderdata["uext"] %></td>	
+	      <td><%= link_to "Deliver", {:controller => "orders", :action => "deliver", :oid =>  orderdata["oid"]},method: :post %></td>
+
+    </tr>
+	  	</tr>	
+	<% end %>
+</table>
