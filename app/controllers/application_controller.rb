@@ -3,8 +3,14 @@ class ApplicationController < ActionController::Base
 
   # layout "users_header"
   layout "admin_header"
+  def notlogged
+	  if !logged_in?
+	  	puts "sorry"
+	  	redirect_to login_path, notice: 'you are not authorized!'
+	  end
+  end
 
-  private
+  helper_method :auth
 
 	def logged_in?
 	  @current_user ||= User.find(session[:user_id]) if session[:user_id]

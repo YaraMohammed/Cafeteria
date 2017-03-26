@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
 
+before_action :logged
 before_action :user_data, only:[:edit, :update,:destroy]
 
 	def index
@@ -10,6 +11,7 @@ before_action :user_data, only:[:edit, :update,:destroy]
 	end
 
 	def create
+
 		@user=User.create(user_params)
 		if @user.save
 			redirect_to users_path, notice: 'Thank you for signing up!'
@@ -43,5 +45,7 @@ end
 def user_data
 	@user = User.find(params[:id])
 end
-
+def logged
+	notlogged
+end
 end
