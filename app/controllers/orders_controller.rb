@@ -44,7 +44,7 @@ class OrdersController < ApplicationController
 
 	def list
 		puts "++++++++++++++++++++++++++++++++++"
-		if @current_user.id != 1
+		if @current_user.id == 1
 			@orders= Order.all
 			# puts "+++++++++++++Orders++++++++++++++"
 			# @orders.inspect
@@ -70,7 +70,6 @@ class OrdersController < ApplicationController
 				# 	@orderproducts << @product
 				# }
 				# @user.inspect
-
 			}
 			# puts "+++++++++++++orderdata++++++++++++++"
 			# puts @orderdata.inspect
@@ -78,7 +77,10 @@ class OrdersController < ApplicationController
 			# puts @orderproducts.inspect
 
 			render 'list'
+		else
+			# TODO Add user order list
 		end
+
 
 	end
 	def deliver
