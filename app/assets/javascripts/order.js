@@ -28,6 +28,8 @@ jQuery(document).ready(function($) {
         );
         total = product['price']*Number($("#"+product['id']+"_q").val());
         $("#"+product['id']+"_t").text(total);
+        t += total ;
+        $("#total").text(t);
     }
   }));
 
@@ -37,45 +39,44 @@ jQuery(document).ready(function($) {
   var price = Number($(this).closest("td").prev('td').text());
   var totalThis = this.value * price ;
   $("#"+id+"_t").text(totalThis) ;
-  t += totalThis ;
+  t += price ;
   $("#total").text(t);
     });
 
 //handle X buttom
  $("body").on("click",".btn-danger",function(){
   this.closest("tr").remove();
-  var i = productsIds.indexOf(this.id);
+  var i = productsIds.indexOf(this.closest("tr").id);
   products.splice(i,1);
   productsIds.splice(i,1);
+  var totalThis = Number(this.closest("tr").children[2].children[0].value) * Number((this).closest("tr").children[1].innerText) ;
+  t -= totalThis ;
+  $("#total").text(t);
  })
-
-
-
 
 
  //Send data to controller
  $("#save_order").click(function(event) {
 
-  /* stop form from submitting normally */
+ // stop form from submitting normally 
    event.preventDefault();
    console.log("stop")
 
   var order_products=[]
    $("#items").children().each(function(){
-    // $('input').id
      product_id=Number(this.id)
      product_quantity=Number(this.children[2].children[0].value)
-     order_products.push(JSON.stringify({"id":product_id,"quantity":product_quantity}))
+     order_products.push({"id":product_id,"quantity":product_quantity})
    });
    
-  /* Send the data using post and put the results in a div */
+  var finalOrder = {"notes": $("#order_notes").val() ,"room": $("#order_room").val(), "products":JSON.stringify(order_products)}
+  /* Send the data using post and put the results in a body */
     $.ajax({
       url: "/orders/new",
       type: "post",
-      data: order_products,
-      success: function(){
-        //TODO display saved msg then clean page
-       //alert('Saved Successfully');
+      data: finalOrder,
+      success: function(response) {
+        $('body').html(response);
       },
       error:function(){
        alert('Error');

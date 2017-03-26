@@ -1,29 +1,35 @@
-
 <h1>My Oders</h1>
 
 <%= render 'form' %>
 
-<%= form_for :order do |f| %>
+<!-- <%= form_for :order do |f| %> -->
 
-<%= f.label :from %>
+<!-- <%= f.label :from %> -->
 
-<input type="text" id="datebox1" onchange="console.log(document.getElementById('datebox1').value)"/>
+<!-- <input type="text" id="datebox1" onchange="console.log(document.getElementById('datebox1').value)"/>
 <%= f.label :to %>
 <input type="text" id="datebox2"   onchange="console.log(document.getElementById('datebox2').value)"/>
 
 
-    <%= f.submit "Search"%>
+    <%= f.submit "Search"%> -->
+
+
+
+<!-- <% end %> -->
+<%= form_for :order do |f| %>
+<p>
+  From <input type="date" name="datefrom"> To <input type="date" name="dateto">
+  <%= f.submit "Search"%>
+</p>
 
 <% end %>
-
-
 
 
 </br>
 <table style="width:50%">
   <tr>
     <th>Order Date</th>
-    <th>Status</th> 
+    <th>Status</th>
     <th>Amount</th>
     <th>Action</th>
   </tr>
