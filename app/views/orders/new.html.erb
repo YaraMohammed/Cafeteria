@@ -2,27 +2,13 @@
 <%= form_for (:order), html: { multipart: true } do |f| %>
 </br>
 </br>
-<div id="search_div">
-  <input type="search" id="search" placeholder="Search" name="" onkeyup="myFunction()>
-  <table>
-<tr>
-  <% @product.each do |product| %>
-  <span>
-  <table style="display: none">
-  <tr>
-  <td><%= image_tag product.image.url(:thumb), :class => "allProducts", :id => product.id, :alt => product.price %></td>
-  </tr>
-  <tr>
-  <td id="name_<%= product.id %>" class="name" style="text-align: center"><%= product.name %></td>
-  </tr>
-   <tr>
-  <td ><p id="msg_<%= product.id %>" ></p></td>
-  </tr>
-  </table>
-  </span>
-  <% end %>
-</div>
 
+<div id="search_div">
+  <input type="search" id="search" placeholder="Search" name="" >
+</div>
+<% if @current_user.id == 1%>
+  <%= f.collection_select(:user_id, User.all(), :id, :name) %>
+<% end %>
 <div id="order" style="display: inline">
 
   <div id="items" ></div>
