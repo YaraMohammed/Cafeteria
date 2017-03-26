@@ -69,8 +69,13 @@ jQuery(document).ready(function($) {
      product_quantity=Number(this.children[2].children[0].value)
      order_products.push({"id":product_id,"quantity":product_quantity})
    });
-   
-  var finalOrder = {"notes": $("#order_notes").val() ,"room": $("#order_room").val(), "products":JSON.stringify(order_products)}
+   var user=""
+   if($("#order_user_id").val() != null) 
+    {
+      user=$("#order_user_id").val() 
+    }
+  console.log(user)
+  var finalOrder = {"notes": $("#order_notes").val() ,"room": $("#order_room").val(), "products":JSON.stringify(order_products),"usr":user}
   /* Send the data using post and put the results in a body */
     $.ajax({
       url: "/orders/new",

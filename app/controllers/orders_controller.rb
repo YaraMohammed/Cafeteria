@@ -18,16 +18,16 @@ class OrdersController < ApplicationController
 
 	def create
 		puts "-----------------Save Order---------------"
+		puts orderProducts
 		@oproducts=JSON.parse orderProducts['products']
-		# puts @oproducts[0]["id"]
-		# puts @oproducts.class
 		if @current_user.id != 1
-			@user = User.find(@current_user.id)
+			# @user = User.find(@current_user.id)
+			@ouser = @current_user.id
 		else
-			# __TODO__Get userid from select list
+			@ouser = orderProducts['usr']
 		end
 
-		@order = Order.create(notes: orderProducts['notes'], room: orderProducts['room'],user_id: @current_user.id)
+		@order = Order.create(notes: orderProducts['notes'], room: orderProducts['room'],user_id: @ouser)
 		
 		if @order.save
 			if @oproducts != nil
@@ -38,7 +38,7 @@ class OrdersController < ApplicationController
 
 		# reload page
 		 @product=Product.all
-		render :new
+		 render :new
 		end
 	end
 
@@ -46,7 +46,7 @@ class OrdersController < ApplicationController
 	end
 
 	def orderProducts
-		params.permit(:room, :products, :notes)
+		params.permit(:room, :products, :notes, :usr)
 	end
 def logged
 	notlogged
