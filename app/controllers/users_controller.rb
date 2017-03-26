@@ -4,7 +4,7 @@ before_action :logged
 before_action :user_data, only:[:edit, :update,:destroy]
 
 	def index
-		@user = User.all.paginate(page: params[:page], per_page: 1)
+		@user = User.where.not(id: 1).paginate(page: params[:page], per_page: 3)
 	end
 	def new
 		@user = User.new
@@ -14,7 +14,7 @@ before_action :user_data, only:[:edit, :update,:destroy]
 
 		@user=User.create(user_params)
 		if @user.save
-			redirect_to users_path, notice: 'Thank you for signing up!'
+			redirect_to users_path
 		else
 			render 'new'
 		end

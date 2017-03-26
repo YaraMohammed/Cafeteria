@@ -1,7 +1,7 @@
 <h1>ALL Users</h1>
- 
+ <div class="container text-justify navbar">
 <%= link_to 'Add user', new_user_path %>
-<table>
+<table class='nav navbar-brand table'>
   <tr>
     <th>name</th>
     <th>room</th>
@@ -22,4 +22,6 @@
 	  	</tr>	
 	<% end %>
 </table>
+</div>
 	<%= will_paginate @user %>
+	

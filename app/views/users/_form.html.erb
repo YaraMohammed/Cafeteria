@@ -1,9 +1,8 @@
-<h1>Add User</h1>
 
 <%= form_for (@user), html: { multipart: true } do |f| %>
 <!-- TODO STyle page -->
   <% if @user.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" >
       <h2>
         <%= pluralize(@user.errors.count, "error") %> prohibited
         this user from being saved:
@@ -19,15 +18,15 @@
 
 
 <div>
-  
-<table>
+
+<table class="navbar table">
 
   <tr>
     <td>
-      <%= f.label :name %>
+      <%= f.label :name%>
     </td>
     <td>
-      <%= f.text_field :name %>
+      <%= f.text_field :name, :class=>"form-control"  %>
     </td>
   </tr>
  
@@ -36,7 +35,7 @@
       <%= f.label :email %>
     </td>
     <td>
-      <%= f.email_field :email %>
+      <%= f.email_field :email, :class=>"form-control"  %>
     </td>
   </tr>
 
@@ -45,16 +44,16 @@
       <%= f.label :password %>
     </td>
     <td>
-      <%= f.password_field :password %>
+      <%= f.password_field :password, :class=>"form-control"  %>
     </td>
   </tr>
 
   <tr>
     <td>
-      <%= f.label :"Confiem Password" %>
+      <%= f.label :"Confirm Password" %>
     </td>
     <td>
-      <%= f.password_field :password_confirmation %>
+      <%= f.password_field :password_confirmation, :class=>"form-control"  %>
     </td>
   </tr>
 
@@ -63,7 +62,7 @@
       <%= f.label :room %>
     </td>
     <td>
-      <%= f.number_field :room %>
+      <%= f.number_field :room, :class=>"form-control"  %>
      </td>
   </tr>
 
@@ -72,7 +71,7 @@
       <%= f.label :"Ext." %>
     </td>
     <td>
-      <%= f.number_field :ext_room %>
+      <%= f.number_field :ext_room, :class=>"form-control"  %>
      </td>
   </tr>
 
@@ -81,16 +80,16 @@
       <%= f.label :"Profile Picture" %>
     </td>
     <td>
-      <%= f.file_field :image %>
+      <%= f.file_field :image%>
     </td>
   </tr>
  
   <tr>
     <td>
-      <%= f.submit %>
+      <%= f.submit :'Create User' , :class => "btn btn-primary"  %>
     </td>
     <td>
-      <%= f.button :Reset, :type=>"reset" %>
+      <%= f.button :Reset, :type=>"reset", :class => "btn btn-primary"  %>
     </td>
   </tr>
 
@@ -99,3 +98,4 @@
 </div>
 
 <% end %>
+
