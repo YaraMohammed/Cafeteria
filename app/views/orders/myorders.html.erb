@@ -1,10 +1,12 @@
 <% if @current_user.id != 1%>
 <h1>My Orders</h1>
-<form action="/action_page.php">
-  <input type="date" name="DateFrom">
-  <input type="date" name="DateTo">
-  <input type="submit" value="Get_Orders">
-</form>
+
+<%= form_tag orders_datefilter_path do %>
+  <input type="date" name="start_date">
+  <input type="date" name="end_date">
+  <%= submit_tag 'GET ORDER' , class: "btn btn-primary"%>
+<% end %>
+
 <table>
   <tr>
     <th>Order Date</th>
