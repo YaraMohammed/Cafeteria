@@ -9,6 +9,6 @@ class Product < ApplicationRecord
 	validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
 	validates :name, presence: true
 	validates :price, presence: true
-	self.per_page = 3
+	self.per_page = 5
 end
-WillPaginate.per_page = 3
+WillPaginate.per_page = 5

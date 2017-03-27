@@ -20,6 +20,11 @@ default: &default
   socket: /var/lib/mysql/mysql.sock
   # for ubuntu
   # socket: /var/run/mysqld/mysqld.sock
+  password:
+  #for fedora
+  socket: /var/lib/mysql/mysql.sock
+  # for ubuntu
+  #socket: /var/run/mysqld/mysqld.sock
 
 
 

@@ -8,7 +8,7 @@ class User < ApplicationRecord
 	validates :password, confirmation: true
   	validates :password_confirmation, presence: true
 
-  	self.per_page = 3
+  	self.per_page = 5
   	has_secure_password
 end
-WillPaginate.per_page = 3
+WillPaginate.per_page = 5
