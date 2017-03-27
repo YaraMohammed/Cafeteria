@@ -32,9 +32,9 @@ ActiveRecord::Schema.define(version: 20170327143020) do
     t.string   "notes"
     t.integer  "room"
     t.date     "date"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.string   "status",     default: "deliver"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.string   "status",     default: "Processing"
     t.integer  "user_id"
     t.index ["user_id"], name: "index_orders_on_user_id", using: :btree
   end
