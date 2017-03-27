@@ -83,6 +83,8 @@ class OrdersController < ApplicationController
 
 
 	end
+
+	#change order status
 	def deliver
 		puts "+++++++++++++oid++++++++++++++"
 		puts params[:oid]
@@ -92,8 +94,28 @@ class OrdersController < ApplicationController
 		redirect_to 'list'
 	end
 
+	#display order products
+	def orderproductlist
+		puts "+++++++++++++oid++++++++++++++"
+		@orderproductsids=OrderProduct.find_by_sql("SELECT * FROM order_products WHERE order_id = "+orderidfromlist["oid"])
+		puts @orderproductsids.inspect
+		@orderproducts=[]
+		@orderproductsids.each{ |op|
+			@product=Product.find(op.product_id)
+			@orderproducts << {"quantity" => op.quantity, "pimg" => @product.image.url(:thumb), "pname" => @product.name, "pprice" => @product.price}
+		}
+		puts "+++++++++++++++++++++++full++++++++++++++++++++++++++"
+		puts @orderproducts.inspect
+		render :json => @orderproducts
+	end
+
+
+
 	def orderProducts
 		params.permit(:room, :products, :notes, :usr)
+	end
+	def orderidfromlist
+		params.permit(:oid)
 	end
 def logged
 	notlogged

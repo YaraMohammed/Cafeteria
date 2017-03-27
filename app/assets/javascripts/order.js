@@ -59,7 +59,7 @@ t = 0 ;
  })
 
 
- //Send data to controller
+ //Send order data to controller
  $("#save_order").click(function(event) {
 
  // stop form from submitting normally 
@@ -92,6 +92,43 @@ t = 0 ;
       }
     });
 });
+
+//handle listening to order in admin home page
+$(".order_tr").click(function(e) {
+  var tr=$(this)
+  var orid=this.id
+  var oid={"oid":orid}
+ $.ajax({
+      url: "/orders/orderproductlist",
+      type: "post",
+      data: oid,
+      success: function(response) {
+        var pdata=response
+        var total=0;
+        for(var i=0;i<pdata.length; i++)
+        {
+          tr.append(
+            // '<div id="div_'+orid+'"">'
+               '<img src='+pdata[i].pimg+'>'+
+               '<p>'+pdata[i].pname+'</p>'+
+               '<p>'+pdata[i].pprice+'</p>'+
+               '<p>'+pdata[i].quantity+'</p>'
+             // '</div>'
+            )
+          total+=pdata[i].pprice*pdata[i].quantity
+         }
+         tr.append('<p> Total ='+total+' EGP </p>') 
+        },
+      error:function(){
+        console.log(e);
+       alert('Error');
+      }
+    });
+});
+
+
+
+
 
 
 //search bar
