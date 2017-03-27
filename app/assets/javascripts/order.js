@@ -137,9 +137,12 @@ $(".order_tr").click(function(e) {
   }
   console.log(OrdersIds)
 });
-
+myOrderTotal = 0
 //calculating orders total amount
-$("#myOrderTotal").html("78");
+$('.amount').each(function(){
+  myOrderTotal += Number(this.id);
+})
+$("#myOrderTotal").html(myOrderTotal);
 
 //search bar
   $("#search").keyup(function(){

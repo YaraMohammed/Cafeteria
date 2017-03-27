@@ -16,7 +16,7 @@
 	   <tr id=<%= orderdata["oid"] %> class="order_tr">
 		    <td><%= orderdata["odate"] %></td>
 		    <td><%= orderdata["ostatus"] %></td>
-	    	<td><%= orderdata["oamount"] %></td>	
+	    	<td id=<%= orderdata["oamount"] %> class="amount"><%= orderdata["oamount"] %></td>	
 	    	<% if orderdata["ostatus"] ==  "Processing" %>
 	     		 <td><%= link_to 'Cancel', {:controller => "orders", :action => "destroy", :oid =>  orderdata["oid"]},
 		              method: :delete,
