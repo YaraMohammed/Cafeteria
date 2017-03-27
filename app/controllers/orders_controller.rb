@@ -106,7 +106,10 @@ class OrdersController < ApplicationController
 		render :json => @orderproducts
 	end
 
-
+	#filter user orders by date
+	# def datefilter
+		
+	# end
 
 	def orderProducts
 		params.permit(:room, :products, :notes, :usr)
