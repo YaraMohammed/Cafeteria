@@ -62,7 +62,7 @@ class OrdersController < ApplicationController
 				@order_products_ids=OrderProduct.find_by_sql("SELECT * FROM order_products WHERE order_id = "+order.id.to_s)
 				@order_products_ids.each{ |op|
 					@pprice=Product.select(:price).where(id: op.product_id)
-					@amount+=@pprice[0].price
+					@amount+=@pprice[0].price*op.quantity
 				}
 				@orderdata << {"oid" => order.id, "odate" => order.created_at,"ostatus" => order.status,"oamount" => @amount}
 			}

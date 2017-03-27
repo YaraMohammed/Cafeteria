@@ -4,7 +4,7 @@ before_action :logged
 before_action :user_data, only:[:edit, :update,:destroy]
 
 	def index
-		@user = User.all.paginate(page: params[:page], per_page: 3)
+		@user = User.all.paginate(page: params[:page], per_page: 5)
 	end
 	def new
 		@user = User.new
