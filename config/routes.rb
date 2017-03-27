@@ -26,7 +26,8 @@ Rails.application.routes.draw do
   get 'orders/new' =>'orders#new'
   get 'orders/myorder'
   post 'orders/orderproductlist' => 'orders#orderproductlist'
-
+  post 'orders/datefilter' => 'orders#datefilter'
+  
   #post 'orders/myorder' =>'orders#list'
   post 'orders/new' =>'orders#create'
   get 'orders' =>'orders#list'

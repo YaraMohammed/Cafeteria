@@ -13,6 +13,9 @@ class OrdersController < ApplicationController
 		# 	puts "uid"	
 			# puts @current_user.id
 		@product=Product.where("status = true")
+		@latest_order=Order.last
+		@lorder_products=OrderProduct.find_by_sql("SELECT * FROM order_products WHERE order_id = "+@latest_order.id.to_s)
+		
 		@order = Order.new
 	end
 
@@ -110,7 +113,7 @@ class OrdersController < ApplicationController
 	def datefilter
 		@orders = Order.where("created_at >= :start_date AND created_at <= :end_date",
   			{start_date: params[:start_date], end_date: params[:end_date]})	
-		
+
   		@orders.each { |order| 
 				@amount=0
 				@order_products_ids=OrderProduct.find_by_sql("SELECT * FROM order_products WHERE order_id = "+order.id.to_s)
@@ -120,7 +123,7 @@ class OrdersController < ApplicationController
 				}
 				@orderdata << {"oid" => order.id, "odate" => order.created_at,"ostatus" => order.status,"oamount" => @amount}
 			}
-			render 'myorders'	
+		render 'myorders'	
 
 	end
 
