@@ -98,10 +98,9 @@ OrdersIds = []
 $(".order_tr").click(function(e) {
   var tr=$(this)
   var orid=this.id
-  console.log(OrdersIds)
   if(OrdersIds.includes(orid)){
     var divid="div_"+orid
-    $('#'+divid).hide();
+    $('#'+divid).remove();
     var remove_prod_div = OrdersIds.indexOf(orid)
     OrdersIds.splice(remove_prod_div,1)
   }
@@ -136,6 +135,7 @@ $(".order_tr").click(function(e) {
         }
        });
   }
+  console.log(OrdersIds)
 });
 
 //calculating orders total amount
