@@ -1,5 +1,10 @@
 <% if @current_user.id != 1%>
 <h1>My Orders</h1>
+<form action="/action_page.php">
+  <input type="date" name="DateFrom">
+  <input type="date" name="DateTo">
+  <input type="submit" value="Get_Orders">
+</form>
 <table>
   <tr>
     <th>Order Date</th>
@@ -20,6 +25,12 @@
 	  	</tr>	
 	<% end %>
 </table>
+	     	<table>
+	     		<tr>
+	     			<td>Total</td>
+	     			<td id="myOrderTotal" ></td>
+	     		</tr>
+	     	</table>
 <% else %>
 <h1>You are not Authorized !!</h1>
 

@@ -138,10 +138,8 @@ $(".order_tr").click(function(e) {
   }
 });
 
-
-
-
-
+//calculating orders total amount
+$("#myOrderTotal").html("78");
 
 //search bar
   $("#search").keyup(function(){
