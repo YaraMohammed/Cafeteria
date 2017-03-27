@@ -15,7 +15,7 @@
       <%= f.text_area :notes, size: "10x5", :class => "form-control" %><br/>
       <%= f.label :Room %>
       <%= f.collection_select(:room, User.uniq.pluck(:room), :to_s, :to_s, {}, {class: "form-control"}) %>
-      <br/>-------------------------------------<br/>
+      <br/>--------------------------------<br/>
       <p id="total">EPG</p>
       <%= f.submit "Save", :id=> "save_order", :class => "btn btn-primary" %>
     </div>

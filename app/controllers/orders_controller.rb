@@ -38,7 +38,7 @@ class OrdersController < ApplicationController
 
 		# reload page
 		 @product=Product.all
-		 render :new
+		 redirect_to :new
 		end
 	end
 	#List admin orders page
@@ -61,11 +61,10 @@ class OrdersController < ApplicationController
 				@order_products_ids=OrderProduct.find_by_sql("SELECT * FROM order_products WHERE order_id = "+order.id.to_s)
 				@order_products_ids.each{ |op|
 					@pprice=Product.select(:price).where(id: op.product_id)
-					# @amount+=@pprice
+					@amount+=@pprice[0].price
 				}
 				@orderdata << {"oid" => order.id, "odate" => order.created_at,"ostatus" => order.status,"oamount" => @amount}
 			}
-			puts @pprice.inspect
 			render 'myorders'
 
 		end
