@@ -12,7 +12,7 @@ class OrdersController < ApplicationController
 		# if logged_in?
 		# 	puts "uid"	
 			# puts @current_user.id
-		@product=Product.all
+		@product=Product.where("status = true")
 		@order = Order.new
 	end
 
@@ -37,50 +37,51 @@ class OrdersController < ApplicationController
 			end
 
 		# reload page
-		 @product=Product.all
+		 @product=Product.where("status = true")
+		 # redirect_to :new
 		 render :new
 		end
 	end
-
+	#List admin orders page
 	def list
+		@orders= Order.all
+		@orderdata=[]
 		puts "++++++++++++++++++++++++++++++++++"
-		if @current_user.id != 1
-			@orders= Order.all
-			# puts "+++++++++++++Orders++++++++++++++"
-			# @orders.inspect
-			# puts @orders.class
-			# @orderproducts=OrderProduct.all
-			@users=User.all
-			@products =Product.all
-			@orderdata=[]
-			@orderproducts=[]
+		if @current_user.id == 1
 			@orders.each { |order| 
 				 # puts order.created_at
 				@user=User.find(order.user_id)
-
-				@orderdata << {"oid" => order.id, "odate" => order.created_at,"uname" => @user.name ,"uroom" => @user.room,"uext" => @user.ext_room}
-				# @orderproductsids=OrderProduct.find_by_order_id(order.id)
-				# @orderproductsids=OrderProduct.connection.select_all("SELECT * FROM order_products WHERE order_id = "+order.id.to_s)
-				@orderproductsids=OrderProduct.find_by_sql("SELECT * FROM order_products WHERE order_id = "+order.id.to_s)
-				# puts "+++++++++++++orderproductsids++++++++++++++"
-				# puts @orderproductsids.inspect
-				# @orderproducts << {"oid" => order.id}
-				# @orderproductsids.each { |product|
-				# 	@product =Product.find(product.product_id)
-				# 	@orderproducts << @product
-				# }
-				# @user.inspect
-
+				@orderdata << {"oid" => order.id, "odate" => order.created_at,"ostatus" => order.status,"uname" => @user.name ,"uroom" => @user.room,"uext" => @user.ext_room}
 			}
-			# puts "+++++++++++++orderdata++++++++++++++"
-			# puts @orderdata.inspect
-			# puts "+++++++++++++orderproducts++++++++++++++"
-			# puts @orderproducts.inspect
-
 			render 'list'
+		else
+			# List user My order page
+			
+			@orders.each { |order| 
+				@amount=0
+				@order_products_ids=OrderProduct.find_by_sql("SELECT * FROM order_products WHERE order_id = "+order.id.to_s)
+				@order_products_ids.each{ |op|
+					@pprice=Product.select(:price).where(id: op.product_id)
+					@amount+=@pprice[0].price
+				}
+				@orderdata << {"oid" => order.id, "odate" => order.created_at,"ostatus" => order.status,"oamount" => @amount}
+			}
+			render 'myorders'
+
 		end
 
 	end
+
+	# delet order page
+	def destroy
+		@order=Order.find(params[:oid])
+    	@order.destroy
+    	redirect_to 'list'
+  	end
+
+
+
+	#change order status
 	def deliver
 		puts "+++++++++++++oid++++++++++++++"
 		puts params[:oid]
@@ -90,9 +91,30 @@ class OrdersController < ApplicationController
 		redirect_to 'list'
 	end
 
+	#display order products
+	def orderproductlist
+		puts "+++++++++++++oid++++++++++++++"
+		@orderproductsids=OrderProduct.find_by_sql("SELECT * FROM order_products WHERE order_id = "+orderidfromlist["oid"])
+		puts @orderproductsids.inspect
+		@orderproducts=[]
+		@orderproductsids.each{ |op|
+			@product=Product.find(op.product_id)
+			@orderproducts << {"quantity" => op.quantity, "pimg" => @product.image.url(:thumb), "pname" => @product.name, "pprice" => @product.price}
+		}
+		puts "+++++++++++++++++++++++full++++++++++++++++++++++++++"
+		puts @orderproducts.inspect
+		render :json => @orderproducts
+	end
+
+
+
 	def orderProducts
 		params.permit(:room, :products, :notes, :usr)
 	end
+	def orderidfromlist
+		params.permit(:oid)
+	end
+
 def logged
 	notlogged
 end

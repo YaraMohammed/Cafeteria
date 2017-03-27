@@ -35,6 +35,17 @@ class ProductsController < ApplicationController
     @product.destroy
     redirect_to products_path
   end
+  def changestatus
+    @product = Product.find(params[:pid])
+    puts @product.status
+    if @product.status 
+      @product.update(status: false)
+    else
+      @product.update(status: true)
+    end
+    puts "xxx"
+    redirect_to 'index'
+  end
 
 
 

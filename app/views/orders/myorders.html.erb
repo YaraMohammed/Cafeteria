@@ -1,0 +1,26 @@
+<% if @current_user.id != 1%>
+<h1>My Orders</h1>
+<table>
+  <tr>
+    <th>Order Date</th>
+    <th>Status</th>
+    <th>Amount</th>	
+    <th>Actions</th>
+  </tr>
+    <% @orderdata.each do |orderdata| %>
+	   <tr id=<%= orderdata["oid"] %> class="order_tr">
+		    <td><%= orderdata["odate"] %></td>
+		    <td><%= orderdata["ostatus"] %></td>
+	    	<td><%= orderdata["oamount"] %></td>	
+	    	<% if orderdata["ostatus"] ==  "Processing" %>
+	     		 <td><%= link_to 'Cancel', {:controller => "orders", :action => "destroy", :oid =>  orderdata["oid"]},
+		              method: :delete,
+		              data: { confirm: 'Are you sure?' } %></td>
+	     	<% end %>
+	  	</tr>	
+	<% end %>
+</table>
+<% else %>
+<h1>You are not Authorized !!</h1>
+
+<% end %>

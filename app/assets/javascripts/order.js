@@ -5,7 +5,7 @@ t = 0 ;
 
 // jQuery(document).on("turbolinks:load",(function($) {
   jQuery(document).ready(function($){
-
+    console.log("njnb")
     $("#order_notes").val("");
 
 //handle listening to products images
@@ -59,7 +59,7 @@ t = 0 ;
  })
 
 
- //Send data to controller
+ //Send order data to controller
  $("#save_order").click(function(event) {
 
  // stop form from submitting normally 
@@ -92,6 +92,55 @@ t = 0 ;
       }
     });
 });
+
+OrdersIds = []
+//handle listening to order in admin home page
+$(".order_tr").click(function(e) {
+  var tr=$(this)
+  var orid=this.id
+  console.log(OrdersIds)
+  if(OrdersIds.includes(orid)){
+    var divid="div_"+orid
+    $('#'+divid).hide();
+    var remove_prod_div = OrdersIds.indexOf(orid)
+    OrdersIds.splice(remove_prod_div,1)
+  }
+  else{
+    OrdersIds.push(orid);
+    var oid={"oid":orid}
+   $.ajax({
+        url: "/orders/orderproductlist",
+        type: "post",
+        data: oid,
+        success: function(response) {
+          var pdata=response
+          var total=0;
+          var divs='<div id=div_'+orid+'>'
+          for(var i=0;i<pdata.length; i++)
+          {
+            divs+=
+                 '<img src='+pdata[i].pimg+'>'+
+                 '<p>'+pdata[i].pname+'</p>'+
+                 '<p>'+pdata[i].pprice+'</p>'+
+                 '<p>'+pdata[i].quantity+'</p>';
+            total+=pdata[i].pprice*pdata[i].quantity
+           }
+           divs+='<p> Total ='+total+' EGP </p></div>';
+           console.log(divs)
+           tr.append(divs)
+           // tr.append('<p> Total ='+total+' EGP </p></div>') 
+          },
+        error:function(){
+          console.log(e);
+         alert('Error');
+        }
+       });
+  }
+});
+
+
+
+
 
 
 //search bar
