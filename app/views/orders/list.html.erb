@@ -14,7 +14,11 @@
 		    <td><%= orderdata["uname"] %></td>
 	    	<td><%= orderdata["uroom"] %></td>
 	    	<td><%= orderdata["uext"] %></td>	
-	      <td><%= link_to "Deliver", {:controller => "orders", :action => "deliver", :oid =>  orderdata["oid"]},method: :post %></td>
+	    	<% if orderdata["ostatus"] ==  "deliver" %>
+	     		 <td><%= link_to "Deliver", {:controller => "orders", :action => "deliver", :oid =>  orderdata["oid"]},method: :post, :onclick => '$(this).text("Out for delivery");' %></td>
+	     	<% else %>
+	     		<td>Out for delivery</td>
+	     	<% end %>
 	  	</tr>	
 	<% end %>
 </table>

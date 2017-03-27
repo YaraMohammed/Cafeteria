@@ -58,7 +58,7 @@ class OrdersController < ApplicationController
 				 # puts order.created_at
 				@user=User.find(order.user_id)
 
-				@orderdata << {"oid" => order.id, "odate" => order.created_at,"uname" => @user.name ,"uroom" => @user.room,"uext" => @user.ext_room}
+				@orderdata << {"oid" => order.id, "odate" => order.created_at,"ostatus" => order.status,"uname" => @user.name ,"uroom" => @user.room,"uext" => @user.ext_room}
 				# @orderproductsids=OrderProduct.find_by_order_id(order.id)
 				# @orderproductsids=OrderProduct.connection.select_all("SELECT * FROM order_products WHERE order_id = "+order.id.to_s)
 				@orderproductsids=OrderProduct.find_by_sql("SELECT * FROM order_products WHERE order_id = "+order.id.to_s)
