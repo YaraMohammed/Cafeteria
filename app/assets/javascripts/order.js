@@ -137,25 +137,26 @@ $(".order_tr").click(function(e) {
   }
   console.log(OrdersIds)
 });
-
-
-
-
-
+myOrderTotal = 0
+//calculating orders total amount
+$('.amount').each(function(){
+  myOrderTotal += Number(this.id);
+})
+$("#myOrderTotal").html(myOrderTotal);
 
 //search bar
   $("#search").keyup(function(){
-    console.log($(this).val().toLowerCase())
- //    $.each(products,function(){
- //      // if(this['name'])
- //      console.log(this);
- //    })
- // // var val = $(this).val().toLowerCase();
- // //  if(products['name'].includes(val))
- // //    console.log(val);
- // //  else
- // //    console.log("not found")
-  
+    $(".products_span").hide();
+    itemSearch = $(this).val().toLowerCase()
+    $(".name").each(function(){
+      productName = this.innerText.toLowerCase()
+      if(itemSearch == productName){
+        $("#"+this.id.split("_")[1]+"_span").show();
+      }
+    })
+        //show products if search bar has no value
+    if($("#search").val() == "")
+      $(".products_span").show();  
  });
 
 });
