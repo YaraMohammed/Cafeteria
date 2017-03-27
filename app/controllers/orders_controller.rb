@@ -41,54 +41,51 @@ class OrdersController < ApplicationController
 		 render :new
 		end
 	end
-
+	#List admin orders page
 	def list
+		@orders= Order.all
+		@orderdata=[]
 		puts "++++++++++++++++++++++++++++++++++"
 		if @current_user.id == 1
-			@orders= Order.all
-			# puts "+++++++++++++Orders++++++++++++++"
-			# @orders.inspect
-			# puts @orders.class
-			# @orderproducts=OrderProduct.all
-			@users=User.all
-			@products =Product.all
-			@orderdata=[]
-			@orderproducts=[]
 			@orders.each { |order| 
 				 # puts order.created_at
 				@user=User.find(order.user_id)
-
 				@orderdata << {"oid" => order.id, "odate" => order.created_at,"ostatus" => order.status,"uname" => @user.name ,"uroom" => @user.room,"uext" => @user.ext_room}
-				# @orderproductsids=OrderProduct.find_by_order_id(order.id)
-				# @orderproductsids=OrderProduct.connection.select_all("SELECT * FROM order_products WHERE order_id = "+order.id.to_s)
-				@orderproductsids=OrderProduct.find_by_sql("SELECT * FROM order_products WHERE order_id = "+order.id.to_s)
-				# puts "+++++++++++++orderproductsids++++++++++++++"
-				# puts @orderproductsids.inspect
-				# @orderproducts << {"oid" => order.id}
-				# @orderproductsids.each { |product|
-				# 	@product =Product.find(product.product_id)
-				# 	@orderproducts << @product
-				# }
-				# @user.inspect
 			}
-			# puts "+++++++++++++orderdata++++++++++++++"
-			# puts @orderdata.inspect
-			# puts "+++++++++++++orderproducts++++++++++++++"
-			# puts @orderproducts.inspect
-
 			render 'list'
 		else
-			# TODO Add user order list
+			# List user My order page
+			
+			@orders.each { |order| 
+				@amount=0
+				@order_products_ids=OrderProduct.find_by_sql("SELECT * FROM order_products WHERE order_id = "+order.id.to_s)
+				@order_products_ids.each{ |op|
+					@pprice=Product.select(:price).where(id: op.product_id)
+					# @amount+=@pprice
+				}
+				@orderdata << {"oid" => order.id, "odate" => order.created_at,"ostatus" => order.status,"oamount" => @amount}
+			}
+			puts @pprice.inspect
+			render 'myorders'
+
 		end
 
-
 	end
+
+	# delet order page
+	def destroy
+		@order=Order.find(params[:oid])
+    	@order.destroy
+    	redirect_to 'list'
+  	end
+
+
 
 	#change order status
 	def deliver
 		puts "+++++++++++++oid++++++++++++++"
 		puts params[:oid]
-		@order = Order.find(params[:oid])
+		@order = Order.find(params[:id])
 		@order.update(status: "out for delivery")
 		puts "+++++++++++++oid++++++++++++++"
 		redirect_to 'list'
@@ -117,6 +114,7 @@ class OrdersController < ApplicationController
 	def orderidfromlist
 		params.permit(:oid)
 	end
+
 def logged
 	notlogged
 end

@@ -43,6 +43,7 @@ class ProductsController < ApplicationController
     else
       @product.update(status: true)
     end
+    puts "xxx"
     redirect_to 'index'
   end
 

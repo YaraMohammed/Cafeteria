@@ -31,7 +31,7 @@ Rails.application.routes.draw do
   post 'orders/new' =>'orders#create'
   get 'orders' =>'orders#list'
   post 'orders/deliver' =>'orders#deliver'
-  
+  delete '/orders/:id' => 'orders#destroy'
   #SESSION ROUTES
   resources :sessions, only: [:new, :create, :destroy]
   
