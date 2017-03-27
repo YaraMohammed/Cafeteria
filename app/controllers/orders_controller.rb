@@ -37,8 +37,9 @@ class OrdersController < ApplicationController
 			end
 
 		# reload page
-		 @product=Product.all
-		 redirect_to :new
+		 @product=Product.where("status = true")
+		 # redirect_to :new
+		 render :new
 		end
 	end
 	#List admin orders page
@@ -84,7 +85,7 @@ class OrdersController < ApplicationController
 	def deliver
 		puts "+++++++++++++oid++++++++++++++"
 		puts params[:oid]
-		@order = Order.find(params[:id])
+		@order = Order.find(params[:oid])
 		@order.update(status: "out for delivery")
 		puts "+++++++++++++oid++++++++++++++"
 		redirect_to 'list'
