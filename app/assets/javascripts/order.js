@@ -181,7 +181,7 @@ $(".user_order_tr").click(function(e) {
       data: usid,
       success: function(response) {
        var pdata=response
-       var divs='<table id=odiv_'+uid+'>'
+       var divs='<table id=odiv_'+uid+'><th> Order Date </th> <th>Amount</th>'
        for(var i=0;i<pdata.length; i++)
        {
         console.log(pdata[i].oid,pdata[i].odate,pdata[i].amount)
