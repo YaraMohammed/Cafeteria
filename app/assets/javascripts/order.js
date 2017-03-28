@@ -87,7 +87,7 @@ t = 0 ;
         $('body').html(response);
       },
       error:function(){
-       alert('Error');
+       //alert('Error');
       }
     });
 });
@@ -127,7 +127,7 @@ OrdersIds = []
           },
         error:function(){
           console.log(e);
-         alert('Error');
+         //alert('Error');
         }
        });
   }
@@ -192,7 +192,7 @@ $(".user_order_tr").click(function(e) {
         },
       error:function(){
         console.log(e);
-       alert('Error');
+       //alert('Error');
       }
 
    });
