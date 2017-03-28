@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'password_resets' => 'password_resets#new'
+  post 'password_resets' => 'password_resets#create'
 
 # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   

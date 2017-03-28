@@ -119,10 +119,7 @@ $(".order_tr").click(function(e) {
           {
             divs+=
                  "<td>"+pdata[i].pprice+"LE<img src="+pdata[i].pimg+">"+pdata[i].pname+"  "+pdata[i].quantity+"piece/s</td>"
-                 // '<td>'+pdata[i].pname+'</td>'+
-                 // '<td>'+pdata[i].pprice+'</td>'+
-                 // '<td>'+pdata[i].quantity+'</td>';
-            // total+=pdata[i].pprice*pdata[i].quantity
+            total+=pdata[i].pprice*pdata[i].quantity
            }
            divs+='<td> Total ='+total+'</td></tr>';
            console.log(divs)
