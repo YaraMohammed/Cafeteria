@@ -2,16 +2,16 @@
 <h1>My Orders</h1>
 
 <%= form_tag orders_datefilter_path do %>
-  <input type="date" name="start_date">
-  <input type="date" name="end_date">
-  <%= submit_tag 'GET ORDER' , class: "btn btn-primary"%>
+  <input type="date" name="start_date" class="col-xs-3" style="margin: 10px;">
+  <input type="date" name="end_date" class="col-xs-3" style="margin: 10px;">
+  <%= submit_tag 'GET ORDER' , class: "btn btn-primary" , style:"margin: 10px;"%>
 <% end %>
 
-<table>
+<table class="table nav navbar">
   <tr>
     <th>Order Date</th>
     <th>Status</th>
-    <th>Amount</th>	
+    <th>Amount</t
     <th>Actions</th>
   </tr>
     <% @orderdata.each do |orderdata| %>
@@ -22,6 +22,7 @@
 	    	<% if orderdata["ostatus"] ==  "Processing" %>
 	     		 <td><%= link_to 'Cancel', {:controller => "orders", :action => "destroy", :oid =>  orderdata["oid"]},
 		              method: :delete,
+		              :remote => false,
 		              data: { confirm: 'Are you sure?' } %></td>
 	     	<% end %>
 	  	</tr>	

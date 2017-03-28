@@ -22,8 +22,8 @@ t = 0 ;
       productsIds.push(productId);
         total = product['price'] ;
         $("#items").append(
-          '<tr title="' + product['name'] + '" id="' + product['id'] + '" data-price="' + product['Price'] + '">' +
-          '<td>' + product['name'] + '</td>' +
+          '<tr title="' + product['name'] + '" id="' + product['id'] + '" data-price="' + product['Price'] + '" class = "navbar navbar-brand">' +
+          '<td>' + product['name'] + '|</td>' +
           '<td title="Unit Price">' + product['price'] + '</td>' +
           '<td title="Quantity"><input type="number" class="quantity" min="1" value=1 style="width: 30px;" id=' + product['id'] + '_q value=""/></td>' +
           '<td title="Total" id=' + product['id'] + '_t>$' + total + '</td>' +
@@ -116,19 +116,16 @@ OrdersIds = []
         success: function(response) {
           var pdata=response
           var total=0;
-          var divs='<div id=div_'+orid+'>'
+          var divs='<tr id=div_'+orid+'>'
           for(var i=0;i<pdata.length; i++)
           {
             divs+=
-                 '<img src='+pdata[i].pimg+'>'+
-                 '<p>'+pdata[i].pname+'</p>'+
-                 '<p>'+pdata[i].pprice+'</p>'+
-                 '<p>'+pdata[i].quantity+'</p>';
+                 "<td>"+pdata[i].pprice+"LE<img src="+pdata[i].pimg+">"+pdata[i].pname+"  "+pdata[i].quantity+"piece/s</td>"
             total+=pdata[i].pprice*pdata[i].quantity
            }
-           divs+='<p> Total ='+total+' EGP </p></div>';
+           divs+='<td> Total ='+total+'</td></tr>';
            console.log(divs)
-           tr.append(divs)
+           tr.after(divs)
            // tr.append('<p> Total ='+total+' EGP </p></div>') 
           },
         error:function(){
@@ -139,6 +136,7 @@ OrdersIds = []
   }
   console.log(OrdersIds)
 });
+
 myOrderTotal = 0
 //calculating orders total amount
 $('.amount').each(function(){
