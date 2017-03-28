@@ -27,22 +27,23 @@
     <% if @current_user.id != 1%>
     <div id="latest_order">
     <h3>Latest Order</h3>
-    <% @lorderdata.each do |lastorder| %>
-      <span>
-            <table style="display: inline;" class="products_span">
-              <tr>
-                <td><%= image_tag lastorder['pimg'] %></td>
-              </tr>
-              <tr>
-                <td class="name" style="text-align: center"><%= lastorder['pname'] %></td>
-              </tr>
-            </table>
-          </span>
+    <% if @lorderdata != nil %>
+      <% @lorderdata.each do |lastorder| %>
+        <span>
+              <table style="display: inline;" class="products_span">
+                <tr>
+                  <td><%= image_tag lastorder['pimg'] %></td>
+                </tr>
+                <tr>
+                  <td class="name" style="text-align: center"><%= lastorder['pname'] %></td>
+                </tr>
+              </table>
+            </span>
+      <% end %>
+      </div>
+      <p><hr></p>
+      <% end %>
     <% end %>
-    </div>
-    <p><hr></p>
-    <% end %>
-
     <div id="list_products" >
       <table>
         <tr>
