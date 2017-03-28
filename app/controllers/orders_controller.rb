@@ -226,12 +226,15 @@ class OrdersController < ApplicationController
 
 	def latestorder
 		@latest_order=Order.last
-		@lorder_products=OrderProduct.find_by_sql("SELECT * FROM order_products WHERE order_id = "+@latest_order.id.to_s)
-		@lorderdata=[]
-		@lorder_products.each{ |lop|
-			@lorder_product=Product.find(lop.product_id)
-			@lorderdata << { "pimg" => @lorder_product.image.url(:thumb), "pname" => @lorder_product.name}
-		}
+		if @latest_order != nil
+
+			@lorder_products=OrderProduct.find_by_sql("SELECT * FROM order_products WHERE order_id = "+@latest_order.id.to_s)
+			@lorderdata=[]
+			@lorder_products.each{ |lop|
+				@lorder_product=Product.find(lop.product_id)
+				@lorderdata << { "pimg" => @lorder_product.image.url(:thumb), "pname" => @lorder_product.name}
+			}
+		end
 	end
 
 def logged
