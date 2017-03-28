@@ -1,7 +1,8 @@
 class OrdersController < ApplicationController
 	require 'json'	
 	before_action :logged
-	# def index
+	before_action :latestorder, only:[:new]
+	# def index 
 	# 	@current_user
 	# 	@product=Product.all
 	# 	@order =Order.new
@@ -13,6 +14,7 @@ class OrdersController < ApplicationController
 		# 	puts "uid"	
 			# puts @current_user.id
 		@product=Product.where("status = true")
+		
 		@order = Order.new
 	end
 
@@ -31,23 +33,32 @@ class OrdersController < ApplicationController
 		
 		if @order.save
 			if @oproducts != nil
-			@oproducts.each{ |oprod|
-				@order_products=OrderProduct.create(order: @order, product_id: oprod["id"], quantity: oprod["quantity"])
-			}
+				@oproducts.each{ |oprod|
+					@order_products=OrderProduct.create(order: @order, product_id: oprod["id"], quantity: oprod["quantity"])
+				}
 			end
-
-		# reload page
-		 @product=Product.where("status = true")
-		 # redirect_to :new
-		 render :new
+			# reload page
+			 @product=Product.where("status = true")
+			#####################List latest order#########################
+			@latest_order=Order.last
+			@lorder_products=OrderProduct.find_by_sql("SELECT * FROM order_products WHERE order_id = "+@latest_order.id.to_s)
+			@lorderdata=[]
+			@lorder_products.each{ |lop|
+				@lorder_product=Product.find(lop.product_id)
+				@lorderdata << { "pimg" => @lorder_product.image.url(:thumb), "pname" => @lorder_product.name}
+			}
+			##############################################
+			
+			render :new
 		end
 	end
 	#List admin orders page
 	def list
-		@orders= Order.all
+		
 		@orderdata=[]
 		puts "++++++++++++++++++++++++++++++++++"
 		if @current_user.id == 1
+			@orders= Order.all
 			@orders.each { |order| 
 				 # puts order.created_at
 				@user=User.find(order.user_id)
@@ -56,7 +67,7 @@ class OrdersController < ApplicationController
 			render 'list'
 		else
 			# List user My order page
-			
+			@orders= Order.where(user_id: @current_user.id)
 			@orders.each { |order| 
 				@amount=0
 				@order_products_ids=OrderProduct.find_by_sql("SELECT * FROM order_products WHERE order_id = "+order.id.to_s)
@@ -76,7 +87,7 @@ class OrdersController < ApplicationController
 	def destroy
 		@order=Order.find(params[:oid])
     	@order.destroy
-    	redirect_to 'list'
+    	redirect_to :back
   	end
 
 
@@ -88,7 +99,7 @@ class OrdersController < ApplicationController
 		@order = Order.find(params[:oid])
 		@order.update(status: "out for delivery")
 		puts "+++++++++++++oid++++++++++++++"
-		redirect_to 'list'
+		redirect_to :back
 	end
 
 	#display order products
@@ -108,9 +119,10 @@ class OrdersController < ApplicationController
 
 	#filter user orders by date
 	def datefilter
-		@orders = Order.where("created_at >= :start_date AND created_at <= :end_date",
-  			{start_date: params[:start_date], end_date: params[:end_date]})	
-		
+		@orderdata=[]	
+  		@orders = Order.where("user_id = :uid AND created_at BETWEEN :start_date AND :end_date",
+   			{uid: @current_user.id, start_date: params[:start_date].to_date.beginning_of_day, end_date: params[:end_date].to_date.end_of_day})	
+  				
   		@orders.each { |order| 
 				@amount=0
 				@order_products_ids=OrderProduct.find_by_sql("SELECT * FROM order_products WHERE order_id = "+order.id.to_s)
@@ -120,15 +132,76 @@ class OrdersController < ApplicationController
 				}
 				@orderdata << {"oid" => order.id, "odate" => order.created_at,"ostatus" => order.status,"oamount" => @amount}
 			}
-			render 'myorders'	
+		render 'myorders'	
 
 	end
+
+	# Checks page
+	def checks
+		if @current_user.id == 1
+			@users=User.where("id != 1")	
+			@uorderdata=[]
+			@users.each { |user|
+				puts "============================================"
+				@amount=0
+				@uorders=Order.find_by_sql("SELECT * FROM orders WHERE user_id = "+user.id.to_s)
+				 puts @uorders.inspect	
+				@uorders.each{ |uorder|
+					if uorder != nil
+						@order_products_ids=OrderProduct.find_by_sql("SELECT * FROM order_products WHERE order_id = "+uorder.id.to_s)
+						@order_products_ids.each{ |op|
+							@pprice=Product.select(:price).where(id: op.product_id)
+							@amount+=@pprice[0].price*op.quantity
+						}
+				 		
+				 	end
+				 }
+				@uorderdata << {"uid" => user.id,"uname" => user.name ,"amount" => @amount}
+			}
+			render 'checks'
+		end
+	end
+	#display user order
+	def userorderlist
+		@userorder=[]
+		# useridfromchecks
+		@userorders=Order.find_by_sql("SELECT * FROM orders WHERE user_id = "+useridfromchecks["usid"])
+		
+		@userorders.each{ |uorder|
+			@total =0
+			if uorder != nil
+				@order_products_ids=OrderProduct.find_by_sql("SELECT * FROM order_products WHERE order_id = "+uorder.id.to_s)	
+				@order_products_ids.each{ |op|
+					@pprice=Product.select(:price).where(id: op.product_id)
+					@total+=@pprice[0].price*op.quantity
+				}
+				@userorder << {"oid" => uorder.id, "odate" => uorder.created_at,"amount" => @total}
+			end
+		}
+		puts @userorder.inspect
+		render :json => @userorder
+	end
+
+
 
 	def orderProducts
 		params.permit(:room, :products, :notes, :usr)
 	end
 	def orderidfromlist
 		params.permit(:oid)
+	end
+	def useridfromchecks
+		params.permit(:usid)
+	end
+
+	def latestorder
+		@latest_order=Order.last
+		@lorder_products=OrderProduct.find_by_sql("SELECT * FROM order_products WHERE order_id = "+@latest_order.id.to_s)
+		@lorderdata=[]
+		@lorder_products.each{ |lop|
+			@lorder_product=Product.find(lop.product_id)
+			@lorderdata << { "pimg" => @lorder_product.image.url(:thumb), "pname" => @lorder_product.name}
+		}
 	end
 
 def logged

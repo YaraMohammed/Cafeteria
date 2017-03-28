@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'password_resets' => 'password_resets#new'
+  post 'password_resets' => 'password_resets#create'
 
 # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   
@@ -26,6 +28,9 @@ Rails.application.routes.draw do
   get 'orders/new' =>'orders#new'
   get 'orders/myorder'
   post 'orders/orderproductlist' => 'orders#orderproductlist'
+  post 'orders/datefilter' => 'orders#datefilter'
+  get 'orders/checks' => 'orders#checks'
+  post 'orders/userorderlist' => 'orders#userorderlist'
 
   #post 'orders/myorder' =>'orders#list'
   post 'orders/new' =>'orders#create'

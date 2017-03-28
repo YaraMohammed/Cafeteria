@@ -22,8 +22,8 @@ t = 0 ;
       productsIds.push(productId);
         total = product['price'] ;
         $("#items").append(
-          '<tr title="' + product['name'] + '" id="' + product['id'] + '" data-price="' + product['Price'] + '">' +
-          '<td>' + product['name'] + '</td>' +
+          '<tr title="' + product['name'] + '" id="' + product['id'] + '" data-price="' + product['Price'] + '" class = "navbar navbar-brand">' +
+          '<td>' + product['name'] + '|</td>' +
           '<td title="Unit Price">' + product['price'] + '</td>' +
           '<td title="Quantity"><input type="number" class="quantity" min="1" value=1 style="width: 30px;" id=' + product['id'] + '_q value=""/></td>' +
           '<td title="Total" id=' + product['id'] + '_t>$' + total + '</td>' +
@@ -94,8 +94,10 @@ t = 0 ;
 });
 
 OrdersIds = []
-//handle listening to order in admin home page
-$(".order_tr").click(function(e) {
+//handle listening to order in admin home/user order page
+// $(".order_tr").click(function(e) {
+  $("body").on("click", ".order_tr", function(e) {
+  console.log("===================================  ")
   var tr=$(this)
   var orid=this.id
   if(OrdersIds.includes(orid)){
@@ -114,19 +116,16 @@ $(".order_tr").click(function(e) {
         success: function(response) {
           var pdata=response
           var total=0;
-          var divs='<div id=div_'+orid+'>'
+          var divs='<tr id=div_'+orid+'>'
           for(var i=0;i<pdata.length; i++)
           {
             divs+=
-                 '<img src='+pdata[i].pimg+'>'+
-                 '<p>'+pdata[i].pname+'</p>'+
-                 '<p>'+pdata[i].pprice+'</p>'+
-                 '<p>'+pdata[i].quantity+'</p>';
+                 "<td>"+pdata[i].pprice+"LE<img src="+pdata[i].pimg+">"+pdata[i].pname+"  "+pdata[i].quantity+"piece/s</td>"
             total+=pdata[i].pprice*pdata[i].quantity
            }
-           divs+='<p> Total ='+total+' EGP </p></div>';
+           divs+='<td> Total ='+total+'</td></tr>';
            console.log(divs)
-           tr.append(divs)
+           tr.after(divs)
            // tr.append('<p> Total ='+total+' EGP </p></div>') 
           },
         error:function(){
@@ -138,8 +137,12 @@ $(".order_tr").click(function(e) {
   console.log(OrdersIds)
 });
 
+myOrderTotal = 0
 //calculating orders total amount
-$("#myOrderTotal").html("78");
+$('.amount').each(function(){
+  myOrderTotal += Number(this.id);
+})
+$("#myOrderTotal").html(myOrderTotal);
 
 //search bar
   $("#search").keyup(function(){
@@ -156,5 +159,63 @@ $("#myOrderTotal").html("78");
       $(".products_span").show();  
  });
 
+
+//handle listening to user in admin checks page
+userIds = []
+$(".user_order_tr").click(function(e) {
+  console.log("=======user_o=======")
+  var tr=$(this)
+  var uid=this.id
+  if(userIds.includes(uid)){
+    var divid="odiv_"+uid
+    $('#'+divid).remove();
+    var remove_order_div = userIds.indexOf(uid)
+    userIds.splice(remove_order_div,1)
+  }
+  else{
+    userIds.push(uid);
+    var usid={"usid":uid}
+   $.ajax({
+      url: "/orders/userorderlist",
+      type: "post",
+      data: usid,
+      success: function(response) {
+       var pdata=response
+       var divs='<table id=odiv_'+uid+'><th> Order Date </th> <th>Amount</th>'
+       for(var i=0;i<pdata.length; i++)
+       {
+        console.log(pdata[i].oid,pdata[i].odate,pdata[i].amount)
+        divs+='<tr id='+pdata[i].oid+ ' class="order_tr">'+
+        '<td>'+ pdata[i].odate +'</td>'+
+        '<td>'+ pdata[i].amount +'</td>'
+       }
+      // {
+      //   divs+=
+      //        '<img src='+pdata[i].pimg+'>'+
+      //        '<p>'+pdata[i].pname+'</p>'+
+      //        '<p>'+pdata[i].pprice+'</p>'+
+      //        '<p>'+pdata[i].quantity+'</p>';
+      //   total+=pdata[i].pprice*pdata[i].quantity
+      //  }
+      //  divs+='<p> Total ='+total+' EGP </p></div>';
+      //  console.log(divs)
+      divs+='</table>'
+       tr.after (divs)
+         // // tr.append('<p> Total ='+total+' EGP </p></div>') 
+        },
+      error:function(){
+        console.log(e);
+       alert('Error');
+      }
+
+   });
+ }
+
+
 });
+
+
+
+
+});//end of jq
 // }));
