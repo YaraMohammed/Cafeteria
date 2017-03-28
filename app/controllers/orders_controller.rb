@@ -136,11 +136,62 @@ class OrdersController < ApplicationController
 
 	end
 
+	# Checks page
+	def checks
+		if @current_user.id == 1
+			@users=User.where("id != 1")	
+			@uorderdata=[]
+			@users.each { |user|
+				puts "============================================"
+				@amount=0
+				@uorders=Order.find_by_sql("SELECT * FROM orders WHERE user_id = "+user.id.to_s)
+				 puts @uorders.inspect	
+				@uorders.each{ |uorder|
+					if uorder != nil
+						@order_products_ids=OrderProduct.find_by_sql("SELECT * FROM order_products WHERE order_id = "+uorder.id.to_s)
+						@order_products_ids.each{ |op|
+							@pprice=Product.select(:price).where(id: op.product_id)
+							@amount+=@pprice[0].price*op.quantity
+						}
+				 		
+				 	end
+				 }
+				@uorderdata << {"uid" => user.id,"uname" => user.name ,"amount" => @amount}
+			}
+			render 'checks'
+		end
+	end
+	#display user order
+	def userorderlist
+		@userorder=[]
+		# useridfromchecks
+		@userorders=Order.find_by_sql("SELECT * FROM orders WHERE user_id = "+useridfromchecks["usid"])
+		
+		@userorders.each{ |uorder|
+			@total =0
+			if uorder != nil
+				@order_products_ids=OrderProduct.find_by_sql("SELECT * FROM order_products WHERE order_id = "+uorder.id.to_s)	
+				@order_products_ids.each{ |op|
+					@pprice=Product.select(:price).where(id: op.product_id)
+					@total+=@pprice[0].price*op.quantity
+				}
+				@userorder << {"oid" => uorder.id, "odate" => uorder.created_at,"amount" => @total}
+			end
+		}
+		puts @userorder.inspect
+		render :json => @userorder
+	end
+
+
+
 	def orderProducts
 		params.permit(:room, :products, :notes, :usr)
 	end
 	def orderidfromlist
 		params.permit(:oid)
+	end
+	def useridfromchecks
+		params.permit(:usid)
 	end
 
 	def latestorder
