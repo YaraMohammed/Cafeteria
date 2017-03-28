@@ -21,7 +21,7 @@
     </div>
     <% if @current_user.id == 1%>
     
-    <div class="col-sm-9" style="margin-left: 20px;">
+    <div class="col-sm-9" >
       <%= f.collection_select(:user_id, User.where.not(id: 1), :id, :name, {}, {class: "form-control"}) %>
     <% end %>
     <% if @current_user.id != 1%>
