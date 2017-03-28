@@ -1,41 +1,30 @@
-# README##
+# README #
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Note ##
 
-Things you may want to cover:
+This version might not be compaitable with all browsers to use full functionality test on google chrome
 
-* Ruby version
+---
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-**run before testing locally 
+* run before testing locally 
+```
 bundle install --without production
+```
 
-**create data base and add admin to users 
+* create data base and add admin to users 
+```
 rake db:create
 rake db:migrate
 rake db:seed
+```
 
-# to upload images to use it @ paperclip gem
-*sudo yum install imagemagick
-*sudo apt-get install imagemagick -y
-**to login
-localhost:3000/login
-admin email : 'admin@cafeteria'
-admin password : 'admin'
+* to upload images to use it @ paperclip gem
+```
+sudo yum install imagemagick
+sudo apt-get install imagemagick -y
+```
+
+* to login open in browser
+* localhost:3000/login
+* admin email : 'admin@cafeteria'
+* admin password : 'admin'
