@@ -99,7 +99,7 @@ class OrdersController < ApplicationController
 		@order = Order.find(params[:oid])
 		@order.update(status: "out for delivery")
 		puts "+++++++++++++oid++++++++++++++"
-		redirect_to 'list'
+		redirect_to :back
 	end
 
 	#display order products
