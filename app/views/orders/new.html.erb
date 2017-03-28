@@ -26,6 +26,7 @@
     <% end %>
     <% if @current_user.id != 1%>
     <div id="latest_order">
+    <h3>Latest Order</h3>
     <% @lorderdata.each do |lastorder| %>
       <span>
             <table style="display: inline;" class="products_span">

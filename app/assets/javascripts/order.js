@@ -85,7 +85,7 @@ t = 0 ;
       type: "post",
       data: finalOrder,
       success: function(response) {
-        $('body').html(response);
+        // $('body').html(response);
       },
       error:function(){
        alert('Error');
@@ -94,7 +94,7 @@ t = 0 ;
 });
 
 OrdersIds = []
-//handle listening to order in admin home page
+//handle listening to order in admin home/user order page
 $(".order_tr").click(function(e) {
   var tr=$(this)
   var orid=this.id

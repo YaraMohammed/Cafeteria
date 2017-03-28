@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
 	require 'json'	
 	before_action :logged
-	before_action :latestorder, only:[:new, :list]
+	before_action :latestorder, only:[:new, :list, :create]
 	# def index
 	# 	@current_user
 	# 	@product=Product.all
@@ -46,10 +46,11 @@ class OrdersController < ApplicationController
 	end
 	#List admin orders page
 	def list
-		@orders= Order.all
+		
 		@orderdata=[]
 		puts "++++++++++++++++++++++++++++++++++"
 		if @current_user.id == 1
+			@orders= Order.all
 			@orders.each { |order| 
 				 # puts order.created_at
 				@user=User.find(order.user_id)
@@ -58,7 +59,7 @@ class OrdersController < ApplicationController
 			render 'list'
 		else
 			# List user My order page
-			
+			@orders= Order.where(user_id: @current_user.id)
 			@orders.each { |order| 
 				@amount=0
 				@order_products_ids=OrderProduct.find_by_sql("SELECT * FROM order_products WHERE order_id = "+order.id.to_s)
@@ -110,10 +111,10 @@ class OrdersController < ApplicationController
 
 	#filter user orders by date
 	def datefilter
-		@orderdata=[]
-		@orders = Order.where("created_at >= :start_date AND created_at <= :end_date",
-  			{start_date: params[:start_date], end_date: params[:end_date]})	
-
+		@orderdata=[]	
+  		@orders = Order.where("user_id = :uid AND created_at BETWEEN :start_date AND :end_date",
+   			{uid: @current_user.id, start_date: params[:start_date].to_date.beginning_of_day, end_date: params[:end_date].to_date.end_of_day})	
+  				
   		@orders.each { |order| 
 				@amount=0
 				@order_products_ids=OrderProduct.find_by_sql("SELECT * FROM order_products WHERE order_id = "+order.id.to_s)
