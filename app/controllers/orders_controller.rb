@@ -1,8 +1,8 @@
 class OrdersController < ApplicationController
 	require 'json'	
 	before_action :logged
-	before_action :latestorder, only:[:new, :list, :create]
-	# def index
+	before_action :latestorder, only:[:new]
+	# def index 
 	# 	@current_user
 	# 	@product=Product.all
 	# 	@order =Order.new
@@ -33,15 +33,23 @@ class OrdersController < ApplicationController
 		
 		if @order.save
 			if @oproducts != nil
-			@oproducts.each{ |oprod|
-				@order_products=OrderProduct.create(order: @order, product_id: oprod["id"], quantity: oprod["quantity"])
-			}
+				@oproducts.each{ |oprod|
+					@order_products=OrderProduct.create(order: @order, product_id: oprod["id"], quantity: oprod["quantity"])
+				}
 			end
-
-		# reload page
-		 @product=Product.where("status = true")
-		 # redirect_to :new
-		 render :new
+			# reload page
+			 @product=Product.where("status = true")
+			#####################List latest order#########################
+			@latest_order=Order.last
+			@lorder_products=OrderProduct.find_by_sql("SELECT * FROM order_products WHERE order_id = "+@latest_order.id.to_s)
+			@lorderdata=[]
+			@lorder_products.each{ |lop|
+				@lorder_product=Product.find(lop.product_id)
+				@lorderdata << { "pimg" => @lorder_product.image.url(:thumb), "pname" => @lorder_product.name}
+			}
+			##############################################
+			
+			render :new
 		end
 	end
 	#List admin orders page

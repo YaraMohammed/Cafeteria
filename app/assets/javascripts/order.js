@@ -85,7 +85,7 @@ t = 0 ;
       type: "post",
       data: finalOrder,
       success: function(response) {
-        // $('body').html(response);
+        $('body').html(response);
       },
       error:function(){
        alert('Error');
