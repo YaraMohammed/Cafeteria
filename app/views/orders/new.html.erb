@@ -21,7 +21,7 @@
     </div>
     <% if @current_user.id == 1%>
     
-    <div class="col-sm-9">
+    <div class="col-sm-9" style="margin-left: 20px;">
       <%= f.collection_select(:user_id, User.where.not(id: 1), :id, :name, {}, {class: "form-control"}) %>
     <% end %>
     <% if @current_user.id != 1%>
@@ -40,7 +40,7 @@
           </span>
     <% end %>
     </div>
-    <p>--------------------------------------</p>
+    <p><hr></p>
     <% end %>
 
     <div id="list_products" >

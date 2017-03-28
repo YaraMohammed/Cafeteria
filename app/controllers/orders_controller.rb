@@ -87,7 +87,7 @@ class OrdersController < ApplicationController
 	def destroy
 		@order=Order.find(params[:oid])
     	@order.destroy
-    	redirect_to 'list'
+    	redirect_to :back
   	end
 
 
