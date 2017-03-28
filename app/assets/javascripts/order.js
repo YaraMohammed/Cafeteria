@@ -114,19 +114,19 @@ $(".order_tr").click(function(e) {
         success: function(response) {
           var pdata=response
           var total=0;
-          var divs='<div id=div_'+orid+'>'
+          var divs='<tr id=div_'+orid+'>'
           for(var i=0;i<pdata.length; i++)
           {
             divs+=
-                 '<img src='+pdata[i].pimg+'>'+
-                 '<p>'+pdata[i].pname+'</p>'+
-                 '<p>'+pdata[i].pprice+'</p>'+
-                 '<p>'+pdata[i].quantity+'</p>';
-            total+=pdata[i].pprice*pdata[i].quantity
+                 "<td>"+pdata[i].pprice+"LE<img src="+pdata[i].pimg+">"+pdata[i].pname+"  "+pdata[i].quantity+"piece/s</td>"
+                 // '<td>'+pdata[i].pname+'</td>'+
+                 // '<td>'+pdata[i].pprice+'</td>'+
+                 // '<td>'+pdata[i].quantity+'</td>';
+            // total+=pdata[i].pprice*pdata[i].quantity
            }
-           divs+='<p> Total ='+total+'</p></div>';
+           divs+='<td> Total ='+total+'</td></tr>';
            console.log(divs)
-           tr.append(divs)
+           tr.after(divs)
            // tr.append('<p> Total ='+total+' EGP </p></div>') 
           },
         error:function(){
@@ -137,6 +137,7 @@ $(".order_tr").click(function(e) {
   }
   console.log(OrdersIds)
 });
+
 myOrderTotal = 0
 //calculating orders total amount
 $('.amount').each(function(){
