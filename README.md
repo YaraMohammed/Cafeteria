@@ -4,8 +4,12 @@
 
 This version might not be compaitable with all browsers to use full functionality test on google chrome
 
+---
+
 * run before testing locally 
-`bundle install --without production`
+```
+bundle install --without production
+```
 
 * create data base and add admin to users 
 ```
