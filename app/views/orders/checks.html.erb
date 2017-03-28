@@ -1,7 +1,11 @@
 <% if @current_user.id == 1%>
 <h1>Checks</h1>
 
-<table>
+<%= form_tag orders_userfilter_path do %>
+	<%= collection_select(:user,:id, User.where.not(id: 1), :id, :name, {}, {class: "form-control"}) %>
+	<%= submit_tag 'Filter' , class: "btn btn-primary" , style:"margin: 10px;"%>
+<% end %>
+<table class="table nav navbar">
   <tr>
     <th>User Name</th>
     <th>Amount</th>	
