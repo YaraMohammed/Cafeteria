@@ -3,7 +3,6 @@ productsIds = []
 found = []
 t = 0 ;
 
-// jQuery(document).on("turbolinks:load",(function($) {
   jQuery(document).ready(function($){
     console.log("njnb")
     $("#order_notes").val("");
@@ -95,7 +94,6 @@ t = 0 ;
 
 OrdersIds = []
 //handle listening to order in admin home/user order page
-// $(".order_tr").click(function(e) {
   $("body").on("click", ".order_tr", function(e) {
   console.log("===================================  ")
   var tr=$(this)
@@ -126,7 +124,6 @@ OrdersIds = []
            divs+='<td> Total ='+total+'</td></tr>';
            console.log(divs)
            tr.after(divs)
-           // tr.append('<p> Total ='+total+' EGP </p></div>') 
           },
         error:function(){
           console.log(e);
@@ -181,7 +178,7 @@ $(".user_order_tr").click(function(e) {
       data: usid,
       success: function(response) {
        var pdata=response
-       var divs='<table id=odiv_'+uid+'><th> Order Date </th> <th>Amount</th>'
+       var divs='<table class="table nav navbar" id=odiv_'+uid+'><th> Order Date </th> <th>Amount</th>'
        for(var i=0;i<pdata.length; i++)
        {
         console.log(pdata[i].oid,pdata[i].odate,pdata[i].amount)
@@ -189,19 +186,9 @@ $(".user_order_tr").click(function(e) {
         '<td>'+ pdata[i].odate +'</td>'+
         '<td>'+ pdata[i].amount +'</td>'
        }
-      // {
-      //   divs+=
-      //        '<img src='+pdata[i].pimg+'>'+
-      //        '<p>'+pdata[i].pname+'</p>'+
-      //        '<p>'+pdata[i].pprice+'</p>'+
-      //        '<p>'+pdata[i].quantity+'</p>';
-      //   total+=pdata[i].pprice*pdata[i].quantity
-      //  }
-      //  divs+='<p> Total ='+total+' EGP </p></div>';
-      //  console.log(divs)
+
       divs+='</table>'
        tr.after (divs)
-         // // tr.append('<p> Total ='+total+' EGP </p></div>') 
         },
       error:function(){
         console.log(e);
@@ -217,5 +204,4 @@ $(".user_order_tr").click(function(e) {
 
 
 
-});//end of jq
-// }));
+});

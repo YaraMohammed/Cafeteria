@@ -30,8 +30,12 @@ Rails.application.routes.draw do
   post 'orders/orderproductlist' => 'orders#orderproductlist'
   post 'orders/datefilter' => 'orders#datefilter'
   get 'orders/checks' => 'orders#checks'
+  #redirect to ckecks at refreashing filter request
+  get '/orders/userfilter' => 'orders#checks'
   post 'orders/userorderlist' => 'orders#userorderlist'
   post 'orders/userfilter' => 'orders#userfilter'
+  #redirect to orders at refreashing filter request
+  get '/orders/datefilter' => 'orders#list'
   #post 'orders/myorder' =>'orders#list'
   post 'orders/new' =>'orders#create'
   get 'orders' =>'orders#list'
