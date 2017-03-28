@@ -12,7 +12,7 @@
     <header class="navbar navbar-fixed-top navbar-inverse">
       <div class="container">
         <nav>
-          <ul class="navbar-brand navbar-nav navbar-left">
+          <ul class="navbar-brand navbar-nav navbar-left" style="width: 100%">
           <!-- TODO add check for admin or normal user -->
             <% if logged_in?  %>
               <% if @current_user.id == 1%>
@@ -28,7 +28,7 @@
                 
               <% end %>
               <%= link_to 'Logout', logout_path %> 
-            <ul class="navbar-brand navbar-nav navbar-right" style="float:right">
+            <ul class="navbar-brand navbar-nav navbar-right" style="float:right; margin-top: -18px">
               <%= image_tag(@current_user.image, :size => '48x48', :style => 'display: inline')%>
               <%= @current_user.name %>
           </ul>
