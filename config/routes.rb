@@ -31,7 +31,7 @@ Rails.application.routes.draw do
   post 'orders/datefilter' => 'orders#datefilter'
   get 'orders/checks' => 'orders#checks'
   post 'orders/userorderlist' => 'orders#userorderlist'
-
+  post 'orders/userfilter' => 'orders#userfilter'
   #post 'orders/myorder' =>'orders#list'
   post 'orders/new' =>'orders#create'
   get 'orders' =>'orders#list'

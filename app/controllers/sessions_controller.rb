@@ -1,5 +1,16 @@
 class SessionsController < ApplicationController
   def new
+  	if User.where(id: 1) == [] || User.count == 0
+  		#create admin user
+  		u = User.new
+		u.id = 1
+		u.email = 'admin@cafeteria'
+		u.password = 'admin' 
+  		u.name = 'admin' 
+  		u.room = 1 
+  		u.password_confirmation = 'admin'
+  		u.save!
+  	end
   end
   def create
 

@@ -182,7 +182,34 @@ class OrdersController < ApplicationController
 		render :json => @userorder
 	end
 
-
+	#user filteration in check page
+	def userfilter
+		if @current_user.id == 1
+			# puts  useridfilterchecks['id']
+			@uid =useridfilterchecks['id']
+			@users=User.where(id: @uid)	
+			@uorderdata=[]
+			 @users.each { |user|
+				puts "========================ddsd===================="
+				@amount=0
+				@uorders=Order.find_by_sql("SELECT * FROM orders WHERE user_id = "+@uid)
+				 puts @uorders.inspect	
+				@uorders.each{ |uorder|
+					if uorder != nil
+						@order_products_ids=OrderProduct.find_by_sql("SELECT * FROM order_products WHERE order_id = "+uorder.id.to_s)
+						@order_products_ids.each{ |op|
+							@pprice=Product.select(:price).where(id: op.product_id)
+							@amount+=@pprice[0].price*op.quantity
+						}
+				 		
+				 	end
+				}
+				@uorderdata << {"uid" => @uid,"uname" => user.name ,"amount" => @amount}
+				
+			}
+			render 'checks'
+		end
+	end
 
 	def orderProducts
 		params.permit(:room, :products, :notes, :usr)
@@ -192,6 +219,9 @@ class OrdersController < ApplicationController
 	end
 	def useridfromchecks
 		params.permit(:usid)
+	end
+	def useridfilterchecks
+		params.require(:user).permit(:id)
 	end
 
 	def latestorder
