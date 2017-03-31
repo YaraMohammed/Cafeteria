@@ -17,9 +17,9 @@ default: &default
   host: localhost
   password:  
   #for fedora
-  socket: /var/lib/mysql/mysql.sock
+  # socket: /var/lib/mysql/mysql.sock
   # for ubuntu
-  # socket: /var/run/mysqld/mysqld.sock
+  socket: /var/run/mysqld/mysqld.sock
   
 
 
